@@ -5,17 +5,19 @@
   
 
   
-  <title>texsd&#39;s blog</title>
+  <title>利用settings命令修改安卓的系统设置 | texsd&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录着我的各种玩机历程的地方~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="texsd&#39;s blog">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="前言 家里的创维盒子需要手机遥控功能，虽说百变遥控可以通过root实现，但是毕竟是十年前的老软件了，随着手机系统更新已经落伍了，但是一众新软件都是通过无障碍实现的鼠标和键盘输入，对于没有原生设置的电视，要如何解决呢？小米6的20.1.16版本miui有个大bug:处于底部的通知栏磁贴怎么都拖不上去，就只能放弃不用了吗？  1. 简单上手1.1 原理介绍现代Android（7+）的设置项本质是修改&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用settings命令修改安卓的系统设置">
+<meta property="og:url" content="http://example.com/2023/04/05/%E5%88%A9%E7%94%A8settings%E5%91%BD%E4%BB%A4%E4%BF%AE%E6%94%B9%E5%AE%89%E5%8D%93%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/index.html">
 <meta property="og:site_name" content="texsd&#39;s blog">
-<meta property="og:description" content="记录着我的各种玩机历程的地方~">
+<meta property="og:description" content="前言 家里的创维盒子需要手机遥控功能，虽说百变遥控可以通过root实现，但是毕竟是十年前的老软件了，随着手机系统更新已经落伍了，但是一众新软件都是通过无障碍实现的鼠标和键盘输入，对于没有原生设置的电视，要如何解决呢？小米6的20.1.16版本miui有个大bug:处于底部的通知栏磁贴怎么都拖不上去，就只能放弃不用了吗？  1. 简单上手1.1 原理介绍现代Android（7+）的设置项本质是修改&#x2F;">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-05T14:04:29.000Z">
+<meta property="article:modified_time" content="2023-04-05T14:08:06.000Z">
 <meta property="article:author" content="texsd">
-<meta property="article:tag" content="Android">
+<meta property="article:tag" content="android">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="texsd&#39;s blog" type="application/atom+xml">
@@ -63,9 +65,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-利用settings命令修改安卓的系统设置" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-利用settings命令修改安卓的系统设置" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2023/04/05/%E5%88%A9%E7%94%A8settings%E5%91%BD%E4%BB%A4%E4%BF%AE%E6%94%B9%E5%AE%89%E5%8D%93%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/" class="article-date">
   <time datetime="2023-04-05T14:04:29.000Z" itemprop="datePublished">2023-04-05</time>
@@ -78,8 +78,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/04/05/%E5%88%A9%E7%94%A8settings%E5%91%BD%E4%BB%A4%E4%BF%AE%E6%94%B9%E5%AE%89%E5%8D%93%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/">利用settings命令修改安卓的系统设置</a>
+    <h1 class="article-title" itemprop="name">
+      利用settings命令修改安卓的系统设置
     </h1>
   
 
@@ -140,97 +140,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-first" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2023/04/05/first/" class="article-date">
-  <time datetime="2023-04-05T13:49:05.000Z" itemprop="datePublished">2023-04-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/04/05/first/">博客的第一篇文章~</a>
-    </h1>
+    <a href="/2023/04/05/first/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">博客的第一篇文章~</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一直想建的站在github pages实现了，没有花一分钱在域名和服务器，可太棒了！<br>现在简单的上个线，发表一篇“存货”，主题啥的没时间研究了，先用默认<del>说的好像你的win和手机壁纸除了锁屏不是默认似的</del>，两个月后再慢慢折腾。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/05/first/" data-id="clg3rkb0k0000tfda8c8b2xma" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2023/04/01/hello-world/" class="article-date">
-  <time datetime="2023-04-01T07:43:58.647Z" itemprop="datePublished">2023-04-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/04/01/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/01/hello-world/" data-id="clg3rkb170001tfda95ni6w5h" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
