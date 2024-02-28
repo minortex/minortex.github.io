@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on 狗窝</title>
+    <link>https://blog.texsd.eu.org/tags/android/</link>
+    <description>Recent content in Android on 狗窝</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>© 2024 T.本秋</copyright>
+    <lastBuildDate>Wed, 05 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.texsd.eu.org/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Android Shell中的命令: settings</title>
+      <link>https://blog.texsd.eu.org/posts/setting-commands-in-android-shell/</link>
+      <pubDate>Wed, 05 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.texsd.eu.org/posts/setting-commands-in-android-shell/</guid>
+      <description>前言 # 家里的创维盒子需要手机遥控功能，虽说百变遥控可以通过root实现，但是毕竟是十年前的老软件了，随着手机系统更新已经落伍了，但是一众新软件都是通过无障碍实现的鼠标和键盘输入，对于没有原生设置的电视，要如何解决呢？</description>
+      
+    </item>
+    
+  </channel>
+</rss>

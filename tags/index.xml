@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 狗窝</title>
+    <link>https://blog.texsd.eu.org/tags/</link>
+    <description>Recent content in Tags on 狗窝</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>© 2024 T.本秋</copyright>
+    <lastBuildDate>Wed, 05 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.texsd.eu.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Android</title>
+      <link>https://blog.texsd.eu.org/tags/android/</link>
+      <pubDate>Wed, 05 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.texsd.eu.org/tags/android/</guid>
+      <description></description>
+      
+    </item>
+    
+  </channel>
+</rss>
