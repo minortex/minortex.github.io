@@ -2,12 +2,13 @@
 date = '2024-12-09T15:42:53+08:00'
 draft = false
 title = '我的ArchLinux折腾记录'
+description = "arch赛高！"
 tags = ["Arch", "Chromebook"]
 +++
 
 ## 前言
 
-拒绝暑假的时候在我的掠夺者 擎neo上面第一次纯手动安装了Arch，过程很有意思，但是后面烂到家的NV驱动让我受不了。
+暑假的时候在我的掠夺者 擎neo上面第一次纯手动安装了Arch，过程很有意思，但是后面烂到家的NV驱动让我受不了。
 
 我在win下喜欢开独显直连模式，但是在arch下就有很大问题：每次睡眠，内建显示器的亮度都会自动开到最大。我试过很多办法，都很难实现记忆之前的亮度。只有在BIOS里面开启混合模式才会出现intel_backlight，这真是太折磨了。
 
@@ -19,11 +20,9 @@ tags = ["Arch", "Chromebook"]
 
 正好这段时间有国补，就在看鸡哥的14x，但是各种说品控差让我望而却步。后面又看火影的6800二手，感觉周边又差一点。
 
-> 怎么，你又开始后悔没有买6800以上的u了？！
+> 怎么，你又开始后悔没有买6800以上的u了？！ 其实只是舍不得出那么多钱罢了！
 
-> 其实只是舍不得出那么多钱罢了！
-
-几番挑选，我决定捡洋垃圾，目光投向了chromebook。这样，就有了这篇文章的主角：Acer Spin713-2w。在海鲜市场的js以1050的价格拿下。
+几番挑选，我决定捡洋垃圾，目光投向了chromebook。这样，就有了这篇文章的主角：Acer Spin713 二代(cp713-2w)。在海鲜市场的js以1050的价格拿下。
 
 配置是i5-10210u，马甲什么的我不是很在意。我在意的是这块屏幕好像是夏老师之前提到的[网格纱窗屏](https://zhuanlan.zhihu.com/p/570757067)，凑近看确实观感不太好，其实，我根本不需要触摸屏的，但是换不得呀！
 
@@ -46,11 +45,11 @@ tags = ["Arch", "Chromebook"]
 
 很幸运的，在Chrultrabook上面提示Linux是完全支持的。然后我就找到了这个项目：
 
-(WeirdTreeThing/chromebook-linux-audio)[https://github.com/WeirdTreeThing/chromebook-linux-audio]
+[WeirdTreeThing/chromebook-linux-audio](https://github.com/WeirdTreeThing/chromebook-linux-audio)
 
 直接一键部署，太舒服了！不过似乎不支持Ubuntu。
 
-后来，在alsa的一次更新后，我的喇叭不出声了，翻了下issue，(这里)[https://github.com/WeirdTreeThing/chromebook-linux-audio/issues/185]提到重新安装加上这个参数就可以了：
+后来，在alsa的一次更新后，我的喇叭不出声了，翻了下issue，[这里](https://github.com/WeirdTreeThing/chromebook-linux-audio/issues/185)提到重新安装加上这个参数就可以了：
 
 ```shell
 ./setup-audio --branch syntax-7
@@ -60,11 +59,11 @@ tags = ["Arch", "Chromebook"]
 
 同样的，还是这位WeirdTreeThing大佬。
 
-(WeirdTreeThing/cros-keyboard-map)[https://github.com/WeirdTreeThing/cros-keyboard-map]
+[WeirdTreeThing/cros-keyboard-map](https://github.com/WeirdTreeThing/cros-keyboard-map)
 
 Chromebook的键盘比较特殊，没有<kbd>Del</kbd>，用<kbd>alt</kbd>+<kbd>backspace</kbd>代替，没有<kbd>Ins</kbd>。原来<kbd>Capslock</kbd>的位置现在变成了<kbd>Meta</kbd>(<kbd>Win</kbd>)键。而左<kbd>alt</kbd>和<kbd>ctrl</kbd>就变得非常大。
 
-就算映射了上面的功能按键，Fn总共也只有十个，其他的想要按下就非常麻烦了。另外值得一提的就是，键盘上面所有的英文全部都是小写的。
+映射了上面的功能按键，让<kbd>Meta</kbd>+功能键可以实现原来的功能，然后单独按下功能键就是<kbd>F1</kbd>-<kbd>F10</kbd>，Fn总共也只有十个，其他的想要按下就非常麻烦了。另外值得一提的就是，键盘上面所有的英文全部都是小写的。
 
 ### 充电
 
@@ -95,7 +94,7 @@ ectool可以控制系统的充电情况。不过可惜我这一台是10代的，
 - CROS_USBPD_CHARGER0
 - CROS_USBPD_CHARGER1
 
-虽然在sysfs里面报告的`online`状态是正确的，来到`upower`就不对了。`AC online`的状态和充电器的状态是相反的。重启`upower`服务可以让状态正确，但是已经被`powerdevil`接受了，所以无济于事。我寻找了很多办法，最终在`upower`的gitlab上面的[issue](https://gitlab.freedesktop.org/upower/upower/-/issues/232)看到了解决方案：
+虽然在sysfs里面报告的`online`状态是正确的，来到`upower`就不对了。`AC online`的状态和充电器的状态是相反的。重启`upower`服务可以让状态正确，但是已经被`powerdevil`接收了，所以无济于事。我寻找了很多办法，最终在`upower`的gitlab上面的[issue](https://gitlab.freedesktop.org/upower/upower/-/issues/232)看到了解决方案：
 
 覆写`upower`的systemd服务，把它访问AC的sysfs禁用：
 ```ini
@@ -145,7 +144,9 @@ Temp2:        +43.9°C
 Temp3:        +39.9°C
 ```
 
-可以发现，ectool并没有读取到cpu的温度，而是其他部分的温度，这个温度会比cpu负载高的时候的温度低很多，当cpu温度降下来后，又会比cpu温度高。而`fw-fanctrl`默认是取`ectool`里面最高的温度，这就会导致风扇控制不灵敏，目前办法还在想...
+可以发现，ectool并没有读取到cpu的温度，而是其他部分的温度，这个温度会比cpu负载高的时候的温度低很多，当cpu温度降下来后，又会比cpu温度高。而`fw-fanctrl`默认是取`ectool`里面最高的温度，这就会导致风扇控制不灵敏，~~目前办法还在想...~~
+
+已经找到解决办法了：安装旧版的`fw-fanctrl`。在24年5月之后，这个工具读取温度的数据源从`lm-sensors`切换到了`ectool`，原因是他们认为这样更加准确。但是我的本子ectool无法读取到cpu的温度，用着旧版就可以了。
 
 ## 小结..
 

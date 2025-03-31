@@ -161,6 +161,11 @@ related:
         - name: categories
           weight: 200
 
+enableGitInfo: true
+
+frontmatter:
+  lastmod: ['lastmod', ':git', 'date', 'publishDate']
+
 markup:
     goldmark:
         extensions:

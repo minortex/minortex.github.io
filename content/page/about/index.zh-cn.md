@@ -1,5 +1,6 @@
 ---
 title: 关于
+license: false
 menu:
     main: 
         weight: -30
