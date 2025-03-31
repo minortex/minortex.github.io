@@ -1,0 +1,152 @@
++++
+date = '2024-12-09T15:42:53+08:00'
+draft = false
+title = '我的ArchLinux折腾记录'
+tags = ["Arch", "Chromebook"]
++++
+
+## 前言
+
+拒绝暑假的时候在我的掠夺者 擎neo上面第一次纯手动安装了Arch，过程很有意思，但是后面烂到家的NV驱动让我受不了。
+
+我在win下喜欢开独显直连模式，但是在arch下就有很大问题：每次睡眠，内建显示器的亮度都会自动开到最大。我试过很多办法，都很难实现记忆之前的亮度。只有在BIOS里面开启混合模式才会出现intel_backlight，这真是太折磨了。
+
+最后，我的评价是，别在日用的电脑上面用n卡和linux！
+
+## 物色新机
+
+作为一个穷学生，已经花了大几千实现臭打游戏的目标，无论怎么说都不太好再拿出几千买电脑。开始我把目标锁定在3k左右，然后降到2k，最后1k。
+
+正好这段时间有国补，就在看鸡哥的14x，但是各种说品控差让我望而却步。后面又看火影的6800二手，感觉周边又差一点。
+
+> 怎么，你又开始后悔没有买6800以上的u了？！
+
+> 其实只是舍不得出那么多钱罢了！
+
+几番挑选，我决定捡洋垃圾，目光投向了chromebook。这样，就有了这篇文章的主角：Acer Spin713-2w。在海鲜市场的js以1050的价格拿下。
+
+配置是i5-10210u，马甲什么的我不是很在意。我在意的是这块屏幕好像是夏老师之前提到的[网格纱窗屏](https://zhuanlan.zhihu.com/p/570757067)，凑近看确实观感不太好，其实，我根本不需要触摸屏的，但是换不得呀！
+
+默念1050...默念1050...默念1050...
+
+## 安装过程
+
+用Arch怎么能不手动安装呢？
+
+但是ArchInstall真的太香了！连好网络分好区，设置好一些东西，直接重启就看到sddm了。
+
+然而，像装黑苹果一样，大家都是装完了然后开系统信息截屏。装完Arch你也可以`fastfetch`，然而，这一切仅仅是个开始...
+
+## 折腾过程
+
+### 声音驱动
+
+众所周知，Chromebook很多型号的声音驱动一直是个大问题，windows上面甚至得付费才有驱动，而我装好一进来也是没有声音的。
+
+
+很幸运的，在Chrultrabook上面提示Linux是完全支持的。然后我就找到了这个项目：
+
+(WeirdTreeThing/chromebook-linux-audio)[https://github.com/WeirdTreeThing/chromebook-linux-audio]
+
+直接一键部署，太舒服了！不过似乎不支持Ubuntu。
+
+后来，在alsa的一次更新后，我的喇叭不出声了，翻了下issue，(这里)[https://github.com/WeirdTreeThing/chromebook-linux-audio/issues/185]提到重新安装加上这个参数就可以了：
+
+```shell
+./setup-audio --branch syntax-7
+```
+
+### 快捷键映射
+
+同样的，还是这位WeirdTreeThing大佬。
+
+(WeirdTreeThing/cros-keyboard-map)[https://github.com/WeirdTreeThing/cros-keyboard-map]
+
+Chromebook的键盘比较特殊，没有<kbd>Del</kbd>，用<kbd>alt</kbd>+<kbd>backspace</kbd>代替，没有<kbd>Ins</kbd>。原来<kbd>Capslock</kbd>的位置现在变成了<kbd>Meta</kbd>(<kbd>Win</kbd>)键。而左<kbd>alt</kbd>和<kbd>ctrl</kbd>就变得非常大。
+
+就算映射了上面的功能按键，Fn总共也只有十个，其他的想要按下就非常麻烦了。另外值得一提的就是，键盘上面所有的英文全部都是小写的。
+
+### 充电
+
+#### 充电限制
+
+首先需要安装ectool，这一个工具可以在aur的`fw-ectool-git`下载，fw代表的是framework book，这个笔记本使用的是开源的ec，正好chromebook也是这个，所以可以通用。
+
+ectool可以控制系统的充电情况。不过可惜我这一台是10代的，不支持sustainer，也就是说ec不能实现在某个区间自动断电。所以只能写一个脚本来控制系统的充电情况。尽管这样还是有一些限制，比如说关机充电可能就会充到满。
+
+接下来我会对我使用的[一些脚本](https://gist.github.com/minortex/0fe6c1098ec8a4f879fa9315d216a957) 进行解释。
+
+- **charge_control.sh**：这是主要进行控制的脚本，里面有两个功能，一个是`--check-battery`，这个参数会检测电池电量，如果超过了78，就会自动设置成idle模式，同时关闭计时器，避免进行无谓的计时；另一个是`--connect-charger`，这个用于udev的控制。
+- **check-battery.service(timer)**：尝试一下systemd-timer，为后续的启动和停用计时器做准备。
+- **control_systemd_battery_timer.sh**：这是一个用于设置上述服务的脚本。主要是用于给udev触发使用。(在rules里面写这么多太不优雅了)
+- **99-battery.rules**：这就是udev触发的规则了。在插上电源的时候检测一次电池电量，大于78就idle，小于就开始充电。同时开启计时器，每三分钟检测一次电池。如果拔掉电源，那么就停止计时器。
+
+值得小心的是，需要把service设置成enabled，这样当电量达到78，同时插着电源并开启idle模式的时候重启电脑，才会保持这个电量。因为重启会重置限制充电的状态。
+
+写了那么多，看起来还是有点臃肿的感觉！不过功能总算是实现了。
+
+#### 缓解kde的电量显示的bug
+
+我到手没几天，就发现kde报告的电池状态有bug。当拔下充电器后，显示已连接充电器，但仍在放电。短暂插入充电器然后拔出，会有概率避免这个问题；睡眠再唤醒也能避免这个问题。
+
+经过一系列的排查，发现问题出现在`upower`上，upower报告了错误的电池状态。`power_supply`总共有三个对象：
+
+- AC
+- CROS_USBPD_CHARGER0
+- CROS_USBPD_CHARGER1
+
+虽然在sysfs里面报告的`online`状态是正确的，来到`upower`就不对了。`AC online`的状态和充电器的状态是相反的。重启`upower`服务可以让状态正确，但是已经被`powerdevil`接受了，所以无济于事。我寻找了很多办法，最终在`upower`的gitlab上面的[issue](https://gitlab.freedesktop.org/upower/upower/-/issues/232)看到了解决方案：
+
+覆写`upower`的systemd服务，把它访问AC的sysfs禁用：
+```ini
+### Editing /etc/systemd/system/upower.service.d/override.conf
+### Anything between here and the comment below will become the contents of the drop-in file
+ 
+[Service]
+InaccessiblePaths=/sys/class/power_supply/AC /sys/devices/pci0000:00/0000:00:1f.0/PNP0C09:00/ACPI0003:00/power_supply/AC
+ 
+### Edits below this comment will be discarded
+```
+
+虽然方法很暴力，但是它有效啊！
+
+### 风扇控制
+
+理论上，其他的chromebook可以直接通过aur安装`fw-fanctrl`来安装一个用python写的脚本来控制。
+
+不过我这台spin713比较特殊，使用`ectool`来查看温度是这样的：
+
+```shell
+$ sudo ectool temps all
+--sensor name -------- temperature -------- ratio (fan_off and fan_max) --
+Temp1                 318 K (= 45 C)          66% (298 K and 328 K)
+Temp2                 324 K (= 51 C)          86% (298 K and 328 K)
+Temp3                 314 K (= 41 C)        N/A (fan_off=0 K, fan_max=0 K)
+```
+
+而`lm-sensors`的输出：
+
+```shell
+$ sensors |sed -n "/coretemp-/,/Temp3/p"
+
+coretemp-isa-0000
+Adapter: ISA adapter
+Package id 0:  +76.0°C  (high = +100.0°C, crit = +100.0°C)
+Core 0:        +59.0°C  (high = +100.0°C, crit = +100.0°C)
+Core 1:        +76.0°C  (high = +100.0°C, crit = +100.0°C)
+Core 2:        +57.0°C  (high = +100.0°C, crit = +100.0°C)
+Core 3:        +61.0°C  (high = +100.0°C, crit = +100.0°C)
+
+cros_ec-isa-0000
+Adapter: ISA adapter
+fan1:        1641 RPM
+Temp1:        +42.9°C  
+Temp2:        +43.9°C  
+Temp3:        +39.9°C
+```
+
+可以发现，ectool并没有读取到cpu的温度，而是其他部分的温度，这个温度会比cpu负载高的时候的温度低很多，当cpu温度降下来后，又会比cpu温度高。而`fw-fanctrl`默认是取`ectool`里面最高的温度，这就会导致风扇控制不灵敏，目前办法还在想...
+
+## 小结..
+
+Arch确实不算是一个能让人省心的系统，但是折腾的过程还是回味无穷的，paru和aur配合在一起的包管理也非常好用。另外折腾的东西，等到以后再补充吧。
