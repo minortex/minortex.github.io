@@ -8,11 +8,15 @@ tags = ["Arch", "Chromebook"]
 
 ## 前言
 
-暑假的时候在我的掠夺者 擎neo上面第一次纯手动安装了Arch，过程很有意思，但是后面烂到家的NV驱动让我受不了。
+暑假的时候在我的掠夺者·擎neo上面第一次纯手动安装了Arch，过程很有意思，但是后面烂到家的NV驱动让我受不了。
 
-我在win下喜欢开独显直连模式，但是在arch下就有很大问题：每次睡眠，内建显示器的亮度都会自动开到最大。我试过很多办法，都很难实现记忆之前的亮度。只有在BIOS里面开启混合模式才会出现intel_backlight，这真是太折磨了。
+我在win下喜欢开独显直连模式，但是在arch下就有很大问题：每次睡眠，内建显示器的亮度都会自动开到最大。
 
-最后，我的评价是，别在日用的电脑上面用n卡和linux！
+~~我试过很多办法，都很难实现记忆之前的亮度。只有在BIOS里面开启混合模式才会出现intel_backlight，这真是太折磨了。~~
+
+~~最后，我的评价是，别在日用的电脑上面用n卡和linux！~~
+
+其实是有办法的，给睡眠加个钩子保存亮度，然后唤醒的时候读取文件并还原亮度。也是勉强能用的。（果然水平提高了就有新办法
 
 ## 物色新机
 
@@ -55,15 +59,64 @@ tags = ["Arch", "Chromebook"]
 ./setup-audio --branch syntax-7
 ```
 
-### 快捷键映射
+### 按键映射
 
-同样的，还是这位WeirdTreeThing大佬。
+Chromebook的键盘比较特殊，没有<kbd>Del</kbd>，没有<kbd>Ins</kbd>。原来<kbd>Capslock</kbd>的位置现在变成了<kbd>Meta</kbd>(<kbd>Win</kbd>)键。而左<kbd>Alt</kbd>和<kbd>Ctrl</kbd>就变得非常大。
+
+写声音脚本的这位兄弟顺手写了个按键映射：
 
 [WeirdTreeThing/cros-keyboard-map](https://github.com/WeirdTreeThing/cros-keyboard-map)
 
-Chromebook的键盘比较特殊，没有<kbd>Del</kbd>，用<kbd>alt</kbd>+<kbd>backspace</kbd>代替，没有<kbd>Ins</kbd>。原来<kbd>Capslock</kbd>的位置现在变成了<kbd>Meta</kbd>(<kbd>Win</kbd>)键。而左<kbd>alt</kbd>和<kbd>ctrl</kbd>就变得非常大。
+这个工具映射了上面的功能按键，让<kbd>Meta</kbd>+功能键可以实现原来的功能，然后单独按下功能键就是<kbd>F1</kbd>-<kbd>F10</kbd>。调节键盘背光，则是按下<kbd>leftAlt</kbd>+亮度按键。
 
-映射了上面的功能按键，让<kbd>Meta</kbd>+功能键可以实现原来的功能，然后单独按下功能键就是<kbd>F1</kbd>-<kbd>F10</kbd>，Fn总共也只有十个，其他的想要按下就非常麻烦了。另外值得一提的就是，键盘上面所有的英文全部都是小写的。
+我手动对这台笔记本的按键进行定制：
+
+- 让锁屏按键变成<kbd>Del</kbd>
+
+- <kbd>rightAlt</kbd>加上锁屏按键变成<kbd>F11</kbd>，加上<kbd>Backspace</kbd>变成<kbd>F12</kbd>
+
+- 删除了一些冗余的配置，避免了之前为了通用一刀切导致的物理音量键变成<kbd>F8</kbd>/<kbd>F9</kbd>的bug
+
+```ini
+[ids]
+k:0001:0001
+
+[main]
+f13=delete
+rightalt = layer(rightalt)
+
+[meta]
+f1 = back
+f2 = forward
+f3 = refresh
+f4 = f11
+f5 = scale
+f6 = brightnessdown
+f7 = brightnessup
+f8 = mute
+f9 = volumedown
+f10 = volumeup
+backspace = f12
+
+[alt]
+f6 = kbdillumdown
+f7 = kbdillumup
+
+[rightalt]
+f6 = kbdillumdown
+f7 = kbdillumup
+backspace = f12
+f13 = f11
+
+[control]
+f5 = sysrq
+
+[control+alt]
+f13 = C-A-delete
+```
+
+另外值得一提的就是，键盘上面所有的英文全部都是小写的。
+
 
 ### 充电
 
