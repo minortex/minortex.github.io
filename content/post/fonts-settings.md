@@ -81,7 +81,7 @@ FiraMonoNerdFontMono-Regular.otf: "FiraMono Nerd Font Mono" "Regular"
 我还额外安装了`otf-firamono-nerd`来实现shell的emoji图标，记住不！要！安！装！nerd-fonts包集！那总共有`7GiB+`！
 
 我是强烈推荐去修改默认字体配置文件的，虽然xml的可读性确实不怎么样，但是根据别人的改嘛，查找替换也不算太难。这里就贴一下我的方案吧：
-
+`~/.config/fontconfig/conf.d/99-notocjk.conf`
 ```xml
 <?xml version='1.0'?>
 <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
