@@ -2,7 +2,7 @@
 title: "Android Shell中的命令: settings"
 date: 2023-04-05
 draft: false
-description: "瞎折腾弄出来前人很少走出来的路~"
+description: "为了电视盒子的无障碍这盘醋，包了碟饺子"
 tags: ["Android"]
 ---
 
