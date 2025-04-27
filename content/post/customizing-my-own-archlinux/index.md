@@ -40,7 +40,44 @@ tags = ["Arch", "Chromebook"]
 
 然而，像装黑苹果一样，大家都是装完了然后开系统信息截屏。装完Arch你也可以`fastfetch`，然而，这一切仅仅是个开始...
 
-## 折腾过程
+### 输入法设置
+
+首先得有输入法吧？
+
+我用的是fcitx5 + rime + 雾凇拼音的组合，最终效果还不错。
+
+1. 首先安装fcitx5、rime和雾凇拼音：
+
+```bash
+paru -S fcitx5 fcitx5-rime rime-ice-git ## 可以用archlinuxcn源的
+```
+
+2. 根据[雾凇拼音的配置方案](https://github.com/iDvel/rime-ice)，把这段配置加入rime输入法：
+
+```yaml
+# $HOME/.local/share/fcitx5/rime/
+patch:
+  # 仅使用「雾凇拼音」的默认配置，配置此行即可
+  __include: rime_ice_suggestion:/
+  # 以下根据自己所需自行定义，仅做参考。
+  # 针对对应处方的定制条目，请使用 <recipe>.custom.yaml 中配置，例如 rime_ice.custom.yaml
+  __patch:
+    key_binder/bindings/+:
+      # 开启逗号句号翻页
+      - { when: paging, accept: comma, send: Page_Up }
+      - { when: has_menu, accept: period, send: Page_Down }
+```
+
+
+3. 进入设置里面，输入与输出-键盘-虚拟键盘把fcitx5打开，这时候才会在语言和时间下面出现输入法。如果因为kde的bug出不来的话，重启或者重装吧。
+
+4. 输入法-添加输入法，选择中州韵。
+
+5. 基本完成了。不过如果没有配置字体，会导致emoji显示空白。可以参考我的[字体方案](https://blog.texsd.eu.org/p/%E5%AD%97%E5%BD%A2%E5%AD%97%E4%BD%93%E4%BB%A5%E5%8F%8A%E6%88%91%E7%9A%84%E9%85%8D%E7%BD%AE/#%E7%B3%BB%E7%BB%9F%E5%AD%97%E4%BD%93%E8%B0%83%E4%BC%98)来解决问题。
+
+6. 如果想要让fcitx5符合breeze的外观，可以安装这个包：`fcitx5-breeze`，然后在输入法-配置附加组件-经典用户界面-主题里面修改成KDE Plasma来实现。
+
+## 对chromebook的折腾过程
 
 ### 声音驱动
 

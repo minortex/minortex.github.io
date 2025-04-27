@@ -83,7 +83,8 @@ FiraMonoNerdFontMono-Regular.otf: "FiraMono Nerd Font Mono" "Regular"
 我是强烈推荐去修改默认字体配置文件的，虽然xml的可读性确实不怎么样，但是根据别人的改嘛，查找替换也不算太难。这里就贴一下我的方案吧：
 `~/.config/fontconfig/conf.d/99-notocjk.conf`
 ```xml
-<?xml version='1.0'?>
+<!-- 在每个字体最后都配置了emoji，使得使用rime的时候候选框显示正确的emoji -->
+`<?xml version='1.0'?>
 <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
 <fontconfig>
  <!-- 配置黑体-->
@@ -96,6 +97,7 @@ FiraMonoNerdFontMono-Regular.otf: "FiraMono Nerd Font Mono" "Regular"
   </test>
   <edit binding="strong" mode="prepend" name="family">
    <string>Noto Sans CJK SC</string>
+   <string>Noto Color Emoji</string>
   </edit>
  </match>
  <!-- 配置宋体-->
@@ -108,6 +110,7 @@ FiraMonoNerdFontMono-Regular.otf: "FiraMono Nerd Font Mono" "Regular"
   </test>
   <edit binding="strong" mode="prepend" name="family">
    <string>Noto Serif CJK SC</string>
+   <string>Noto Color Emoji</string>
   </edit>
  </match>
   <match target="pattern">
@@ -118,11 +121,24 @@ FiraMonoNerdFontMono-Regular.otf: "FiraMono Nerd Font Mono" "Regular"
  <!-- 这里等宽配置了两个字体，原因是FiraMono没有中文的等宽字体，下面写上Noto的等宽字体就可以自动fallback了-->
     <string>FiraMono Nerd Font Mono</string>
    <string>Noto Sans Mono CJK SC</string>
+   <string>Noto Color Emoji</string>
+  </edit>
+    </match>
+   <match target="font">
+  <edit name="hinting" mode="assign">
+   <bool>true</bool>
+  </edit>
+ </match>
+ <match target="font">
+  <edit name="hintstyle" mode="assign">
+   <const>hintfull</const>
   </edit>
  </match>
  <dir>~/.local/share/fonts</dir>
 </fontconfig>
 ```
+
+
 总共三段内容，分别对应衬线，无衬线，等宽，按照自己的喜好修改即可。不知道字体名字可以用`fc-match -a`查看引号内的字体名称，或者看桌面设置里面的字体选项。
 
 ### Win
@@ -136,3 +152,6 @@ Windows中文版默认是使用微软雅黑的，修改需要改注册表。所�
 现代系统基本都是矢量字体，这些字体是通过贝塞尔曲线画出来的。Windows为了兼容旧的程序和低分屏，要求字体都要支持Hinting。而自带的微软雅黑对此有优化，别的字体就不太行。但是微软雅黑尽力了，没法避免100%下的字体发虚。所以还是换4K屏吧，200%的比例放大下，字体渲染还是可以的。
 
 想了解这篇细节，可以看看[Windows 的字体渲染的一些鸟事](https://www.bilibili.com/opus/856322865719410692)
+
+## 参考
+ - https://github.com/oodzchen/dotfiles/blob/main/dot_config/fontconfig/fonts.conf
