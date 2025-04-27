@@ -1,6 +1,6 @@
 +++
 date = '2025-04-25T21:46:16+08:00'
-draft = false
+draft = true
 title = '那些防火墙的事情--iptables&nftables&firewalld'
 description = '折腾防火墙有感'
 tags = ['Arch']
