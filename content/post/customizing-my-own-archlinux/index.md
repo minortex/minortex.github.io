@@ -77,6 +77,25 @@ patch:
 
 6. 如果想要让fcitx5符合breeze的外观，可以安装这个包：`fcitx5-breeze`，然后在输入法-配置附加组件-经典用户界面-主题里面修改成KDE Plasma来实现。
 
+### Locale设置
+
+默认在安装的时候大家都会选择`en_US.UTF-8`，这是为了避免tty不支持中文显示。不过在安装完毕后，一般都会重新编译`zh_CN.UTF-8`的语言支持。
+
+这里我选用了一些特殊的设置方式，而不是直接设置`LC_ALL`。原因是让各种工具提示的信息和显示的日志为英文，同时让单位之类的显示符合国内的习惯。
+
+配置像这样：
+
+```shell
+# /etc/locale.conf
+LANG=zh_CN.UTF-8           # 默认界面语言为中文
+LC_MESSAGES=en_US.UTF-8    # 强制日志和错误信息用英文
+LC_PAPER=en_SG.UTF-8       # 纸张尺寸 A4
+LC_MEASUREMENT=en_SG.UTF-8 # 公制单位（米、升、℃）
+LC_TIME=en_SG.UTF-8        # 24 小时制时间
+```
+
+参考[archwikicn-安装教程](https://wiki.archlinuxcn.org/wiki/%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97#%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%8C%96%E8%AE%BE%E7%BD%AE)
+
 ## 对chromebook的折腾过程
 
 ### 声音驱动
