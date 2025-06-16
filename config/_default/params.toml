@@ -6,7 +6,7 @@ smartTOC = true
 smartTOCHideUnfocusedChildren = true
 defaultAppearance = "light"
 dateFormat = "2006 Jan 02"
-
+defaultBackgroundImage = '/imgs/background-article.jpg'
 copyright = "Copyright© { year } T.本秋. Licensed under CC BY-NC-SA 4.0."
 
 [header]
@@ -30,6 +30,10 @@ showWordCount = true
 showTableOfContents = true
 showBreadcrumbs = true
 showPagination = true
+showhero = true
+heroStyle = "background"
 
 [list]
 constrainItemsWidth = "prose"
+showHero = true
+heroStyle = "background"

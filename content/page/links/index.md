@@ -1,6 +1,4 @@
 ---
-title: 链接
-license: false
 links:
   - title: William Wei’s Blog
     description: Everything will be well. Hopefully.
@@ -18,20 +16,25 @@ links:
     #  description: 
     #  website: 
     #  image: 
-menu:
-    main: 
-        weight: -50
-        params:
-            icon: link
-
+    
+title: 我的朋友们！
+showAuthor: false
+showDate: false
+showReadingTime: false
+showWordCount: false
+showTableOfContents: false
 comments: false
+showhero: true
+herostyle: background
 ---
 
-欢迎交换，不过目前可能没什么系统写东西的计划~
+欢迎交换~
 
-这是我的友链信息：
+这是我的信息：
 
 - minortex's blog
 - With great power comes great responsibility.
 - https://blog.texsd.eu.org
 - https://blog.texsd.eu.org/images/avatar.webp
+
+{{< links >}}

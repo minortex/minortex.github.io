@@ -1,10 +1,18 @@
-
 [[main]]
+  name = "主页"
+  pageRef = "/"
+  weight = 1
+  [[main]]
   name = "文章"
   pageRef = "posts"
   weight = 10
 
 [[main]]
   name = "朋友们"
-  pageRef = "link"
+  pageRef = "links"
   weight = 90
+  
+[[main]]
+  name = "关于"
+  pageRef = "about"
+  weight = 100

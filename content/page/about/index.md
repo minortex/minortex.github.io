@@ -1,11 +1,11 @@
 ---
 title: 关于
-license: false
-menu:
-    main: 
-        weight: -30
-        params:
-            icon: user
+showAuthor: false
+showDate: false
+showReadingTime: false
+showWordCount: false
+showTableOfContents: false
+comments: false
 ---
 
 名字：T.本秋、秋枫微凉、texsd、minortex
