@@ -1,0 +1,10 @@
+
+[[main]]
+  name = "文章"
+  pageRef = "posts"
+  weight = 10
+
+[[main]]
+  name = "朋友们"
+  pageRef = "link"
+  weight = 90

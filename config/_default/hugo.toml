@@ -1,0 +1,10 @@
+defaultContentLanguage = "zh-cn"
+theme = "blowfish"
+copyright = "T.本秋"
+hasCJKLanguage = true
+enableRobotsTXT = true
+
+[outputs]
+home = 	["HTML", "RSS", "JSON"]
+
+summaryLength = 0

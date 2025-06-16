@@ -1,0 +1,35 @@
+colorScheme = "fire"
+enableSearch = true
+enableCodeCopy = true
+highlightCurrentMenuArea = true
+smartTOC = true
+smartTOCHideUnfocusedChildren = true
+defaultAppearance = "light"
+dateFormat = "2006 Jan 02"
+
+copyright = "Copyright© { year } T.本秋. Licensed under CC BY-NC-SA 4.0."
+
+[header]
+layout = "fixed-fill-blur"
+
+[footer]
+showScrollToTop = true
+
+[homepage]
+layout = "background"
+homepageImage = "imgs/background.webp"
+showrecent = true
+showmorelink = true
+cardView = true
+layoutBackgroundBlur = true
+
+[article]
+showDateUpdated = true
+showAuthorBottom = true
+showWordCount = true
+showTableOfContents = true
+showBreadcrumbs = true
+showPagination = true
+
+[list]
+constrainItemsWidth = "prose"

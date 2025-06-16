@@ -1,0 +1,16 @@
+hasCJKLanguage = true
+enableRobotsTXT = true
+title = "minortex's blog"
+
+[params.author]
+name = "T.本秋"
+image = "imgs/avatar.webp"
+headline = "With great power comes great responsibility."
+links = [
+  { github = "https://github.com/minortex" },
+  { bilibili = "https://space.bilibili.com/40649597" },
+  { coolapk = "http://www.coolapk.com/u/790851" },
+  { moegirlpedia = "https://zh.moegirl.org.cn/User:Texsd123" },
+  { email = "mailto:texsd.tt29@outlook.com" }
+]
+

@@ -1,0 +1,21 @@
+<div class="article-list--compact links">
+  {{- range .Page.Params.links -}}
+  <article>
+    <a href="{{ .website }}" target="_blank" rel="noopener">
+      {{- if .image -}}
+      <div class="article-image">
+        <img src="{{ .image }}" loading="lazy" alt="{{ .title }} logo">
+      </div>
+      {{- end -}}
+      <div class="article-details">
+        <h2 class="article-title">{{ .title }}</h2>
+        {{- with .description -}}
+        <footer class="article-time">
+          {{ . }}
+        </footer>
+        {{- end -}}
+      </div>
+    </a>
+  </article>
+  {{- end -}}
+</div>
