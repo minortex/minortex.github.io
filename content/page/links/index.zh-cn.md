@@ -10,6 +10,10 @@ links:
     description: 理想主义重症患者
     website: https://ziheng5.github.io/
     image: https://ziheng5.github.io/images/head.jpg
+  - title: 594飞飘的个人博客
+    description: 学习笔记与生活记录
+    website: https://feipiao594.github.io/
+    image: https://feipiao594.github.io/images/feipiao.gif
     #- title: 
     #  description: 
     #  website: 
@@ -30,4 +34,4 @@ comments: false
 - minortex's blog
 - With great power comes great responsibility.
 - https://blog.texsd.eu.org
-- https://blog.texsd.eu.org/static/avatar.webp
+- https://blog.texsd.eu.org/images/avatar.webp

@@ -1,0 +1,74 @@
+body {
+    position: relative; /* 确保body是定位上下文 */
+    z-index: 1;         /* 确保页面内容在虚化背景之上 */
+    overflow-x: hidden; /* 防止因为背景溢出导致水平滚动条 */
+}
+
+/* 创建一个伪元素作为虚化背景 */
+body::before {
+    content: "";
+    position: fixed; /* 固定在视口，不随滚动条滚动 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/background.webp'); /* 替换为你的图片路径 */
+    background-size: cover; /* 覆盖整个区域 */
+    background-position: center center; /* 图片居中 */
+    background-repeat: no-repeat; /* 不重复 */
+    filter: blur(1px); /* 虚化效果，8px是模糊程度，你可以调整这个值 */
+    -webkit-filter: blur(1px); /* 兼容WebKit浏览器（如Safari） */
+    z-index: -1; /* 将这个伪元素放在页面内容之后 */
+}
+
+/* （可选）添加一个半透明的蒙版，使背景更柔和或内容更突出 */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* 黑色半透明蒙版，调整rgba值可改变颜色和透明度 */
+    z-index: -1; /* 同样放在内容之后，在虚化背景之上 */
+    transition: background-color 0.3s ease;
+}
+/* 浅色模式（默认）的遮罩 */
+/* 当没有特定主题类时，或者在浅色模式下，会应用这个遮罩 */
+
+/* 浅色模式的遮罩 */
+/* 当 html[data-scheme] 为 'light' 时应用 */
+html[data-scheme="light"] body::after {
+    background-color: rgba(255, 255, 255, 0.5); /* 浅色模式：轻微的白色半透明遮罩，让背景稍微提亮 */
+}
+
+/* 深色模式的遮罩 */
+/* 当 html[data-scheme] 为 'dark' 时应用 */
+html[data-scheme="dark"] body::after {
+    background-color: rgba(0, 0, 0, 0.4); /* 深色模式：中等强度的黑色半透明遮罩，压暗背景，提高文字对比度 */
+}
+
+/* 侧边栏的其他次要文本，例如 .site-meta 中的文字 */
+html[data-scheme="light"] .site-meta {
+    color: #555555;
+}
+
+html[data-scheme="dark"] .site-meta {
+    color: #bbbbbb;
+}
+
+/* 侧边栏菜单文字颜色（主菜单和底部菜单） */
+html[data-scheme="light"] .sidebar ol.menu li a {
+    color: #000000; /* 浅色模式下菜单链接颜色 */
+}
+
+/* 侧边栏的其他小文本或辅助信息 */
+html[data-scheme="light"] .sidebar .widget-title,
+html[data-scheme="light"] .sidebar .tagCloud-tags a,
+html[data-scheme="light"] .sidebar .search-form label {
+    color: #777777; /* 浅色模式下辅助文本颜色 */
+}
+
+html[data-scheme="dark"] .site-footer {
+    color: #999999;
+}
