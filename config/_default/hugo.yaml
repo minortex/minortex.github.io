@@ -26,7 +26,7 @@ languages:
         weight: 2
         params:
             sidebar:
-                subtitle: Nothing's true, everything's permitted.
+                subtitle: With great power comes great responsibility.
 
 services:
     # Change it to your Disqus shortname before using
