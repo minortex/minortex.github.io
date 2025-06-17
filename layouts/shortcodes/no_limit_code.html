@@ -1,0 +1,4 @@
+<div class="no-limit-code"> 
+    {{ $lang := .Get 0 | default "text" }} 
+    {{ highlight .Inner $lang }}
+</div>

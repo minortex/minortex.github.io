@@ -1,14 +1,41 @@
-  /* 
-    最终解决方案：
-    使用媒体查询 (Media Query) 来区分桌面和移动设备。
-  */
+/* =================================================================== */
+    /* 长代码块限制 */
+/* =================================================================== */
+pre {
+    max-height: 50vh; /* 设置最大高度，例如 300px, 400px 或 30vh */
+    overflow-y: auto;  /* 垂直方向：内容超出时显示滚动条 */
+    overflow-x: auto;  /* 水平方向：内容超出时显示滚动条 (适用于长行代码) */
+    padding-bottom: 1em; /* 增加底部内边距，防止滚动条遮挡最后一行代码 */
+
+    /* 注意：对于代码块，通常不希望自动换行，所以保持默认的 white-space: pre; 或明确设置 */
+    /* white-space: pre; */
+}
+
+/*例外，在短码中定义的不折叠*/
+.no-limit-code pre {
+    max-height: none !important;    /* 移除最大高度限制 */
+    overflow-y: visible !important; /* 垂直方向不显示滚动条 */
+    /* overflow-x: auto !important; */ /* 水平滚动通常希望保留，所以这里不覆盖或根据需求设置 */
+}
+
+
+
+
+
+
+
+
+
+
+/* =================================================================== */
+    /* 使用媒体查询 (Media Query) 来区分桌面和移动设备。 */
+/* =================================================================== */
 
   /* 
     第一部分：默认样式（针对手机等小屏幕）
     这里我们什么都不做，让主题保持默认行为。
     这样可以确保在手机上文章宽度是 100%，不会溢出。
   */
-
 
   /* 
     第二部分：仅在屏幕宽度大于 1024px 时生效（针对平板横屏和桌面电脑）
@@ -28,16 +55,19 @@
     .lg\:max-w-xs {
         max-width: 18rem; /* 默认是 20rem，可以适当减小 */
     }
-
-    /* 
-       注意：您之前添加的关于 ltr: 和 min-w-0 的规则都应该被删除，
-       因为它们不是解决问题的正确方法，并且会引发在移动设备上的问题。
-    */
   }
 
+
+
+
+
+
+
+
+
+
 /* =================================================================== */
-/*           完整最终版：集成深浅色模式的友情链接样式                  */
-/*              (基于您的代码和发现进行重构)                         */
+/*           集成深浅色模式的友情链接样式                  */
 /* =================================================================== */
 
 /* --- 1. 变量定义 (主题核心) --- */
@@ -107,6 +137,7 @@ div.article-content .article-list--compact.links article a {
 
 /* 圆形Logo/图片容器 */
 div.article-content .article-list--compact.links article .article-image {
+  pointer-events: none;
   flex-shrink: 0;
   width: 60px;
   height: 60px;
@@ -156,8 +187,13 @@ div.article-content .article-list--compact.links {
 }
 /* 平板: 两列 */
 @media (min-width: 768px) {
+  .max-w-prose {
+    max-width: 100% !important;
+  }
   div.article-content .article-list--compact.links {
     grid-template-columns: 1fr 1fr;
+    margin-left: auto; /* 实现自动居中 */
+    margin-right: auto; /* 实现自动居中 */
   }
 }
 /* 桌面: 三列 */
@@ -170,4 +206,26 @@ div.article-content .article-list--compact.links {
     margin-left: auto; /* 实现自动居中 */
     margin-right: auto; /* 实现自动居中 */
   }
+}
+
+
+
+
+
+
+
+
+
+/* =================================================================== */
+/* 针对 Blowfish 主题中 hero 背景图片的容器 */
+/* =================================================================== */
+.single_hero_background {
+    background-position: top right !important; /* 确保顶部居中显示，底部裁剪 */
+    background-size: cover !important;          /* 确保图片覆盖整个容器，同时保持比例 */
+    background-repeat: no-repeat !important;    /* 避免图片重复 */
+    /* 您可以根据需要调整 h-[800px] 这个固定高度，
+       如果它导致图片在某些屏幕上看起来不理想。
+       但要覆盖它可能需要更复杂的 CSS 或修改主题配置。
+       这里我们只关注 background-position。
+    */
 }

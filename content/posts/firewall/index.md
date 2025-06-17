@@ -19,7 +19,7 @@ iptables，这玩意算是个古董了，大概在21世纪初就有了。不过�
 
 提起`iptables`，我们也许会想到五链四表，不过一般来说，知道`nat`和`filter`表就已经足够完成80%的工作了（`ipv4`），我在[archwiki的iptables](https://wiki.archlinuxcn.org/wiki/Iptables)章节翻到这张图，也许能够有助于理解：
 
-```
+{{< no_limit_code >}}
                                XXXXXXXXXXXXXXXXXX
                              XXX     Network    XXX
                                XXXXXXXXXXXXXXXXXX
@@ -54,7 +54,7 @@ Routing decision                                                  |
                                XXXXXXXXXXXXXXXXXX
                              XXX    Network     XXX
                                XXXXXXXXXXXXXXXXXX
-```
+{{< /no_limit_code >}}
 
 这里的Network，指的就是不同的网卡接口。
 

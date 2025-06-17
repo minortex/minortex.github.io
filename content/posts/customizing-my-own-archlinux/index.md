@@ -105,7 +105,7 @@ LC_TIME=en_SG.UTF-8        # 24 小时制时间
 
 很幸运的，在Chrultrabook上面提示Linux是完全支持的。然后我就找到了这个项目：
 
-[WeirdTreeThing/chromebook-linux-audio](https://github.com/WeirdTreeThing/chromebook-linux-audio)
+{{<github repo="WeirdTreeThing/chromebook-linux-audio">}}
 
 直接一键部署，太舒服了！不过似乎不支持Ubuntu。
 
@@ -121,7 +121,7 @@ Chromebook的键盘比较特殊，没有<kbd>Del</kbd>，没有<kbd>Ins</kbd>。
 
 写声音脚本的这位兄弟顺手写了个按键映射：
 
-[WeirdTreeThing/cros-keyboard-map](https://github.com/WeirdTreeThing/cros-keyboard-map)
+{{<github repo="WeirdTreeThing/cros-keyboard-map">}}
 
 这个工具映射了上面的功能按键，让<kbd>Meta</kbd>+功能键可以实现原来的功能，然后单独按下功能键就是<kbd>F1</kbd>-<kbd>F10</kbd>。调节键盘背光，则是按下<kbd>leftAlt</kbd>+亮度按键。
 
