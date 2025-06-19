@@ -1,6 +1,6 @@
 ---
 links:
-  - title: William Wei’s Blog
+  - title: William Wei's Blog
     description: Everything will be well. Hopefully.
     website: https://williamwei.top
     image: https://williamwei.top/links/avatar.png
@@ -32,7 +32,7 @@ herostyle: background
 
 这是我的信息：
 
-- minortex's blog
+- T.本秋的自留地
 - With great power comes great responsibility.
 - https://blog.texsd.eu.org
 - https://blog.texsd.eu.org/images/avatar.webp
