@@ -164,9 +164,6 @@ f7 = kbdillumup
 backspace = f12
 f13 = f11
 
-[control]
-f5 = sysrq
-
 [control+alt]
 f13 = C-A-delete
 ```
