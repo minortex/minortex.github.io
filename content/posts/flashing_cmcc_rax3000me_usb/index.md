@@ -16,6 +16,10 @@ title = '中国移动RAX3000Me USB3.0版折腾小记'
 
 ## 刷写教程
 
+教程大部分都是参考这篇文章，在此感谢。
+
+[CMCC RAX3000Me可通过mtk_uartboot启动刷机，拆机刷OpenWRT/ImmortalWRT无障碍！](https://www.right.com.cn/forum/thread-8408539-1-1.html)
+
 ### 拆机
 
 先把贴纸撕下来，拧下两颗螺丝。
@@ -161,4 +165,3 @@ PS D:\UserData\Desktop\mtk>
 
 [^2]: [MediaTek Filogic 系列路由器串口救砖教程 - 暗云 - 博客园](https://www.cnblogs.com/p123/p/18046679)
 
-[^3]: [CMCC RAX3000Me可通过mtk_uartboot启动刷机，拆机刷OpenWRT/ImmortalWRT无障碍！](https://www.right.com.cn/forum/thread-8408539-1-1.html)
