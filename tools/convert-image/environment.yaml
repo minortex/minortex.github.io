@@ -1,0 +1,7 @@
+name: image-converter
+
+channels:
+  - defaults     # 指定包的下载渠道
+
+dependencies:
+  - pillow       # 我们脚本唯一的依赖包
