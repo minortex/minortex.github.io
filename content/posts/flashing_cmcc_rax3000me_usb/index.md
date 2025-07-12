@@ -4,6 +4,16 @@ draft = false
 title = '中国移动RAX3000Me USB3.0版折腾小记'
 +++
 
+## 前言
+
+这几天在闲鱼蹲路由器，终于让我蹲到了一台65的RAX3000Me，遂开始折腾。
+
+买之前看了下恩山发现可以免拆，无非就是导出导入配置文件破解ssh呗，但是到手之后，发现我大意了。
+
+这台没法按照<cite>标准流程[^1]</cite>破解密码，通过爬帖得知，无法导出配置的自己的加密都存在问题，没办法免拆。
+
+那？！CH340，启动！
+
 ## 刷写教程
 
 ### 拆机
@@ -32,7 +42,7 @@ title = '中国移动RAX3000Me USB3.0版折腾小记'
 
 [U-Boot](https://github.com/Daniel-Hwang/RAX3000Me/tree/main/20241111-RAX3000Me_Step12-TelnetUboot)
 
-[bl2](https://www.lanzouw.com/ioTYu1pvi23g) <cite>（预构建，也可自行编译）[^1]</cite>
+[bl2](https://www.lanzouw.com/ioTYu1pvi23g) <cite>（预构建，也可自行编译）[^2]</cite>
 
 [mtk_uartboot](https://github.com/981213/mtk_uartboot/releases/tag/v0.1.1)
 
@@ -145,10 +155,10 @@ PS D:\UserData\Desktop\mtk>
 当然后面可以刷hanwckf的固件，那就自己折腾吧。
 
 
-## 参考[^2][^3]
+## 参考
 
-[^1]: [MediaTek Filogic 系列路由器串口救砖教程 - 暗云 - 博客园](https://www.cnblogs.com/p123/p/18046679)
+[^1]: [Daniel-Hwang/RAX3000Me: RAX3000Me路由器开发与固件刷入详细教程](https://github.com/Daniel-Hwang/RAX3000Me)
 
-[^2]: [CMCC RAX3000Me可通过mtk_uartboot启动刷机，拆机刷OpenWRT/ImmortalWRT无障碍！](https://www.right.com.cn/forum/thread-8408539-1-1.html)
+[^2]: [MediaTek Filogic 系列路由器串口救砖教程 - 暗云 - 博客园](https://www.cnblogs.com/p123/p/18046679)
 
-[^3]: [Daniel-Hwang/RAX3000Me: RAX3000Me路由器开发与固件刷入详细教程](https://github.com/Daniel-Hwang/RAX3000Me)
+[^3]: [CMCC RAX3000Me可通过mtk_uartboot启动刷机，拆机刷OpenWRT/ImmortalWRT无障碍！](https://www.right.com.cn/forum/thread-8408539-1-1.html)
