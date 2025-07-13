@@ -24,13 +24,18 @@ title = '中国移动RAX3000Me USB3.0版折腾小记'
 
 先把贴纸撕下来，拧下两颗螺丝。
 
-左手握着长边，右手握着短边，用力往下掰，会出现一条缝，用薄点的拆机片或者卡片撬开，小心别把卡扣弄断了。
+左手握着长边，右手握着短边，像这样：
 
-拧下5颗螺丝，卸下散热片，上面涂有硅脂，可能要稍微移动一下散热片才好下来。
+![操作手法](image-3.webp)
+
+用力往下掰，会出现一条缝，用薄点的拆机片或者卡片撬开，小心别把卡扣弄断了。
+
+
+拧下5颗螺丝，卸下散热片，上面涂有硅脂，要稍微移动一下散热片才好下来，装回去的时候得重新涂一下。
 
 （其实不卸下也行，但是我探针就太难插了）
 
-推一下rj45的卡口，把主板撬出来，小心不要弄断天线连接处了。
+推一下下面和右边的卡扣，把主板撬出来，小心不要弄断天线连接处了。
 
 你会看到这样：
 
@@ -44,9 +49,11 @@ title = '中国移动RAX3000Me USB3.0版折腾小记'
 
 ![文件](image-1.webp)
 
-[U-Boot](https://github.com/Daniel-Hwang/RAX3000Me/tree/main/20241111-RAX3000Me_Step12-TelnetUboot)
+[U-Boot](https://www.right.com.cn/forum/thread-8400306-1-1.html)（天灵的U-Boot，这位大佬还发小男娘表情包，推荐关注~）
 
 [bl2](https://www.lanzouw.com/ioTYu1pvi23g) <cite>（预构建，也可自行编译）[^2]</cite>
+
+> 这个BL2其实就是[firmware-selector](https://firmware-selector.immortalwrt.org/?version=24.10.2&target=mediatek%2Ffilogic&id=cmcc_rax3000me)中的preloader，所以理论上是可以从这下载的，我刷完之后想再试一次发现没法进去了，有兴趣的可以试试。
 
 [mtk_uartboot](https://github.com/981213/mtk_uartboot/releases/tag/v0.1.1)
 
@@ -81,36 +88,7 @@ Handshake...
 确认插好了，就直接上电，大概30秒左右，mtk_uartboot输出以下内容并交还shell：
 
 ```
-PS D:\UserData\Desktop\mtk> .\mtk_uartboot.exe -s COM3 -p .\mt7981-ddr4-bl2.bin -a -f .\20250415_RAX3000me-nand-ddr3_HY_uboot.bin --brom-load-baudrate 115200 --bl2-load-baudrate 115200
-mtk_uartboot - 0.1.1
-Using serial port: COM3
-Handshake...
-hw code: 0x7981
-hw sub code: 0x8a00
-hw ver: 0xca00
-sw ver: 0x1
-Baud rate set to 115200
-sending payload to 0x201000...
-Checksum: 0x48b7
-Setting baudrate back to 115200
-Jumping to 0x201000 in aarch64...
-Waiting for BL2. Message below:
-==================================
-NOTICE:  BL2: v2.10.0   (release):v2.4-rc0-5845-gbacca82a8-dirty
-NOTICE:  BL2: Built : 20:20:25, Feb  2 2024
-NOTICE:  WDT: Cold boot
-NOTICE:  WDT: disabled
-NOTICE:  EMI: Using DDR4 settings
-NOTICE:  EMI: Detected DRAM size: 0MB
-==================================
-Timeout waiting for specified message.
-PS D:\UserData\Desktop\mtk> .\mtk_uartboot.exe -s COM3 -p .\mt7981-ddr3-bl2.bin -a -f .\20250415_RAX3000me-nand-ddr3_HY_uboot.bin --brom-load-baudrate 115200 --bl2-load-baudrate 115200
-mtk_uartboot - 0.1.1
-Using serial port: COM3
-thread 'main' panicked at src\main.rs:143:17:
-Failed to open port: Error { kind: NoDevice, description: "拒绝访问。" }
-note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
-PS D:\UserData\Desktop\mtk> .\mtk_uartboot.exe -s COM3 -p .\mt7981-ddr3-bl2.bin -a -f .\20250415_RAX3000me-nand-ddr3_HY_uboot.bin --brom-load-baudrate 115200 --bl2-load-baudrate 115200
+PS D:\UserData\Desktop\mtk> .\mtk_uartboot.exe -s COM3 -p .\mt7981-ddr3-bl2.bin -a -f .\mt7981-cmcc_rax3000me-nand-ddr3-fip-fit.bin --brom-load-baudrate 115200 --bl2-load-baudrate 115200
 mtk_uartboot - 0.1.1
 Using serial port: COM3
 Handshake...
@@ -141,20 +119,21 @@ FIP sent.
 ==================================
 NOTICE:  Received FIP 0x3df58 @ 0x40400000 ...
 ==================================
-PS D:\UserData\Desktop\mtk>
 ```
 
 然后路由器就会亮起蓝灯（正常进官方系统没联网是红灯），网线插LAN口连到电脑，输入`192.168.1.1/uboot.html`，上传之前下载的uboot。
 
 ### 刷入固件
 
-我没完全搞明白现在wrt的刷入逻辑，不过这样是可以的：
+我没完全搞明白现在wrt的刷入逻辑，我第一次是这样的：
 
-1. 从[immirtalwrt selector](https://firmware-selector.immortalwrt.org/?version=24.10.2&target=mediatek%2Ffilogic&id=cmcc_rax3000me) 下载KERNEL。
+1. 从[firmware-selector](https://firmware-selector.immortalwrt.org/?version=24.10.2&target=mediatek%2Ffilogic&id=cmcc_rax3000me) 下载KERNEL。
 
 2. 进入`192.168.1.1`，上传固件，自动重启，成功了应该是亮绿灯。`immortalwrt`的管理地址`192.168.1.1`，用户名`root`，密码无。
 
-3. 再重新刷写一次`sysupgrade`，这样就完成了。
+3. 再重新在系统更新里面刷写一次`sysupgrade`，这样就完成了。
+
+理论上直接刷sysupgrade也是可以的，这个就自己尝试了，反正有不死U-Boot。
 
 当然后面可以刷hanwckf的固件，那就自己折腾吧。
 
