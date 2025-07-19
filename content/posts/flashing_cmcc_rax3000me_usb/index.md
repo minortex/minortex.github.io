@@ -47,7 +47,15 @@ title = '中国移动RAX3000Me USB3.0版折腾小记'
 
 准备好这些东西：
 
-![文件](image-1.webp)
+```shell
+❯ ls -lah
+总计 2.3M
+drwxr-xr-x 1 texsd texsd  148  7月19日 14:11 .
+drwx------ 1 texsd texsd 1.3K  7月18日 21:58 ..
+-rw-r--r-- 1 texsd texsd 248K  7月14日 18:10 mt7981-cmcc_rax3000me-nand-ddr3-fip-fit.bin
+-rwxrwxr-x 1 texsd texsd 206K 2024年 2月 2日 mt7981-ddr3-bl2.bin
+-rwxr-xr-x 1 texsd texsd 1.9M 2024年 3月 2日 mtk_uartboot
+```
 
 [天灵的U-Boot](https://www.right.com.cn/forum/thread-8400306-1-1.html)
 
@@ -55,7 +63,7 @@ title = '中国移动RAX3000Me USB3.0版折腾小记'
 
 [mtk_uartboot](https://github.com/981213/mtk_uartboot/releases/tag/v0.1.1)
 
-打开你的`shell`，`cd`到此文件夹，连接你的CH340，你应该能在设备管理器看到对应的串口。我在Linux上面是`/dev/ttyUSB0`，如果你使用Windows，一般是`COMX`，请自行替换。
+打开你的`shell`，`cd`到此文件夹，连接你的CH340，你应该能在设备管理器看到对应的串口。我是`/dev/ttyUSB0`，如果你使用Windows，一般是`COMX`，请自行替换。
 
 ```shell
 ./mtk_uartboot -s /dev/ttyUSB0 -p ./mt7981-ddr3-bl2.bin -f mt7981-cmcc_rax3000me-nand-ddr3-fip-fit.bin --brom-load-baudrate 115200 --bl2-load-baudrate 115200 -a
@@ -79,11 +87,7 @@ Handshake...
 
 ![CH340](image-2.webp)
 
-> 其实我还有一个更好的，放学校忘记拿回来了
-
-> 这位兄弟由于5V对地短路已经似了，这是他的生前照片😭
-
-找出CH340的`GND` `RX` `3V3` `TX`，从左往右依次按上主板的触点，这时候右手还可以操作电脑。(后面实测，不接3.3v也可以成功烧录，要接12v电源才能开始)
+找出CH340的`GND` `RX` `TX`，从左往右依次按上主板的触点（不用接3.3v），这时候右手还可以操作电脑。
 
 > 如果你不确定是否插好，可以退出mtk_uartboot，打开任意串口工具并连接，直接插电启动，应该能看到调试信息。
 
@@ -126,11 +130,11 @@ NOTICE:  Received FIP 0x3df58 @ 0x40400000 ...
 
 #### 一些问题
 
-##### `mtk_uartboot`异常退出，提示coredump
+>`mtk_uartboot`异常退出，提示coredump
 
 这大概率是连接不好/接上了3.3v。建议不要接3.3v，否则每次连上都会导致CH340断开连接。
 
-##### 无论怎么尝试，总是提示`Timeout waiting for specified message.`
+> 无论怎么尝试，总是提示`Timeout waiting for specified message.`
 
 有下面两种情况：
 
@@ -180,18 +184,21 @@ Timeout waiting for specified message.
 
 ### 刷入固件
 
-我没完全搞明白现在wrt的刷入逻辑，我第一次是这样的：
+#### 新版固件
 
-1. 从[firmware-selector](https://firmware-selector.immortalwrt.org/?version=24.10.2&target=mediatek%2Ffilogic&id=cmcc_rax3000me) 下载KERNEL。
+新版的`immortalwrt`（23.05和我打算用的24.10）已经在使用一种新的镜像文件`*.itb`，这个镜像同时包含`dtb` `ramdisk` `kernel`。想要详细了解的可以参考[u-boot FIT image介绍](http://www.wowotech.net/u-boot/fit_image_overview.html)
 
-2. 进入`192.168.1.1`，上传固件，自动重启，成功了应该是亮绿灯。`immortalwrt`的管理地址`192.168.1.1`，用户名`root`，密码无。
+直接刷入`sysupgrade`的`itb`可能会出现不成功的情况，表现为一直闪蓝灯，这里我们需要先刷入`initramfs`的`itb`，重启进入系统之后，再刷入对应的`sysupgrade`镜像。
 
-3. 再重新在系统更新里面刷写一次`sysupgrade`，这样就完成了。
+请注意`uboot`版本可能与固件版本相关，经过测试天灵25年3月编译的`uboot`是可以使用我上面的方法刷入237固件。
 
-理论上直接刷sysupgrade也是可以的，这个就自己尝试了，反正有不死U-Boot。
+[padavanonly/immortalwrt-mt798x-6.6](https://github.com/)
 
-当然后面可以刷hanwckf的固件，那就自己折腾吧。
+#### 旧版固件
 
+如果你想使用原汁原味的[immortalwrt-mt798x](https://cmi.hanwckf.top/p/immortalwrt-mt798x/)，你可能得使用原版的hanwckf的`uboot`，这个版本没有`dhcp`需要手动设置静态地址。建议使用24.11的版本，因为尝试了22年的版本发现不认复旦微的这颗NAND，导致`uboot`无法启动，只能使用CH340重新刷一遍。
+
+而且，使用最新源码编译出来会导致wifi设置中缺少加密方式的问题，此问题亦有在issues里面提及，但感觉修复的可能性不大。
 
 ## 参考
 
