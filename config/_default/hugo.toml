@@ -1,4 +1,5 @@
 defaultContentLanguage = "zh-cn"
+baseURL = "https://blog.texsd.eu.org"
 theme = "blowfish"
 copyright = "T.本秋"
 hasCJKLanguage = true
