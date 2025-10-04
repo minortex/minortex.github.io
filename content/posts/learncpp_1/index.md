@@ -1,5 +1,5 @@
 ---
-title: "cpp学习笔记（1）"
+title: "cpp学习笔记(1)"
 date: 2025-09-11T08:10:38+08:00
 draft: false
 lastmod: 2025-09-30T10:28:08+08:00
