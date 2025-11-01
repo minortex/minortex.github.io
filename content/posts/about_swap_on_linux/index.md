@@ -1,6 +1,6 @@
 +++
 date = '2025-11-01T21:57:31+08:00'
-draft = true
+draft = false
 title = '关于Linux的swap那些事情'
 +++
 
