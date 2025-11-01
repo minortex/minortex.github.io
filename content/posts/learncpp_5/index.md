@@ -1,7 +1,7 @@
 +++
 date = '2025-09-29T08:25:14+08:00'
-draft = true
-title = 'Learncpp_5'
+draft = false
+title = 'cpp学习笔记(5)'
 +++
 
 ## 枚举
@@ -160,3 +160,181 @@ int main()
 > 为什么`getter`不能像上面一样反过来？
 
 因为在类内部的存储对象就是真正的`string`，给出它的引用使得外部访问的类型明确，不会造成歧义；同时也提示这个引用的生命周期是明确的————跟成员变量一致。
+
+### 构造函数
+
+构造函数用于初始化类，在此我们可以手动指定成员变量如何初始化。
+
+#### 转化构造函数
+
+转化构造函数其实就是特殊的构造函数，其只拥有一个参数。如果传入一个该参数类型的变量，那么就会自动把这这个变量转化成类。
+
+#### 默认构造函数
+
+```cpp
+class Foo{
+    int m_a;
+    int m_b{};
+    
+  public:
+    Foo () = default; //可以显式的声明构造函数为默认构造函数，此时m_a会被默认初始化为0。
+    Foo () {} //用户自己初始化，但是空初始化，此时m_a不会被初始化，是垃圾值。
+}
+```
+
+#### 委托构造函数
+
+在一个构造函数的`:`后面写上参数更多的重载构造函数，可以用另一个构造函数来初始化，但是此构造函数就不能再初始化成员变量。
+
+尽量不要使用太多的构造函数。
+
+#### 复制构造函数
+
+复制构造函数的参数必须是引用，要不然就会发生无限递归的调用复制函数。
+
+复制构造函数不应用于复制以外的意图，因为编译器可能会发生复制省略(copy elision)
+
+### explicit关键字
+
+禁止隐式转换：从单个参数隐式转换成类对象；从列表`{xxx,xxx}`转换成类对象。
+
+在具有单个参数的构造函数前加入，避免编译器执行隐式转换。
+
+由于C++对于用户定义的转换，只允许转换一次，所以下面的代码会报错：
+
+```cpp
+#include <iostream>
+#include <string>
+#include <string_view>
+
+class Employee
+{
+private:
+    std::string m_name{};
+
+public:
+    Employee(std::string_view name)
+        : m_name{ name }
+    {
+    }
+
+    const std::string& getName() const { return m_name; }
+};
+
+void printEmployee(Employee e) // has an Employee parameter
+{
+    std::cout << e.getName();
+}
+
+int main()
+{
+    // 此时要经历两次转换：C-Style string -> string_view -> class Employee
+    printEmployee("Joe"); // compile error
+    
+    // 修正：
+    // 方法1:
+    // using std::literals;
+    // printEmployee("Joe"sv);
+    // 方法2:
+    // printEmployee(Employee{"Joe"});
+
+
+    return 0;
+}
+```
+
+不对复制/移动构造函数使用`explicit`，因为他们不执行隐式转换。
+
+如果转换的时候两者等效且零开销，可以不使用`explicit`。
+
+比如：
+
+1. `const char*` -> `string_view`
+2. `string` -> `string_view`
+
+### constexpr问题
+
+从C++14开始，`constexpr`修饰函数仅仅是作为编译时求值的提示，如果传入的变量不是一个`constexpr`，那么这个函数就具有运行时的上下文，`constexpr`修饰就不起作用。
+
+对于`struct`，其作为一个聚合体，默认的构造函数无须加入`constexpr`就可以用它初始化一个类对象。但是对于`class`，就必须`public`，同时手动指定构造函数是`constexpr`，比如：
+
+```cpp
+Foo {
+  public:
+    constexpr Foo = default;
+}
+```
+
+而`constexpr`修饰一个类对象的时候，如果涉及到的函数（构造函数、`setter`以及使用到的成员函数）都有`constexpr`修饰，表示这个类具有编译时的上下文，会让此对象成为一个编译时常量。在编译时如果此对象是用临时对象初始化的，对临时对象是可以修改的，但是一旦这个对象初始化完毕，那么就不再可以修改。
+
+后续要访问此`constexpr`对象，那么所有的函数`()`后，都必须有`const`，保证不修改此对象。
+
+参考(learncpp - 14.17)[https://www.learncpp.com/cpp-tutorial/constexpr-aggregates-and-classes/]
+
+### this指针
+
+`this`指针是一个`const`指针（顶层），指向当前操作的类。
+
+`this`指针出现比引用早，不然它多少是个引用。
+
+### 成员函数类外定义
+
+成员函数可以在类外定义，要加上域访问解析符`::`。如果是类的正下方（`.h`中），前面加`inline`关键字以防止重复包含；如果是对应的cpp中，无须加`inline`。
+
+默认参数在声明时给出。
+
+### 类型模板参数
+
+可以在类指定类型模板参数，不过如果成员函数先声明，然后在类外定义，那么需要单独再指定一次模板参数。
+
+模板类外的成员函数要紧挨着类定义的下面。
+
+注意：
+
+1. 所有的模板函数都是默认内联的，所以就算在类外定义，已经隐式`inline`了。
+2. 类外定义的函数的类型模板参数必须与类的一致。
+
+传入类模板的参数，无须加`<T>`，因为已经在`Pair<T>::`作用域中了。
+
+```cpp
+template <typename T>
+bool Pair<T>::isEqual(const Pair& pair) // note the parameter has type Pair, not Pair<T>
+{
+    return m_first == pair.m_first && m_second == pair.m_second;
+}
+```
+
+### 静态成员变量
+
+静态成员变量在所有实例化的对象都可用，具有相同的值，在未实例化的时候也可以使用，直接用类名和域访问解析符访问。
+
+声明的时候，在类内加`static`关键字，类外定义不能加关键字。
+
+位置：直接在类后面/类对应的`cpp`，头文件中可以加`inline`。
+
+只有静态成员变量可以自动推断，普通的不允许。
+
+用途：一个根据数量递增的ID
+
+### 静态成员函数
+
+静态成员函数用于访问静态全局变量。
+
+有替代品：
+
+- 命名空间：没有访问控制
+- 静态全局类对象
+
+### 友元
+
+在被访问的类中声明，从而使得外部的类/函数能够访问`private`和`protected`的对象。
+
+#### 友元函数
+
+在类中声明，自动成为非成员的函数，类外定义。
+
+此项特性对于运算符重载非常有用。
+
+#### 友元类
+
+直接在类内定义。
