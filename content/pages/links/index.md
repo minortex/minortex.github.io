@@ -12,6 +12,10 @@ links:
     description: 学习笔记与生活记录
     website: https://feipiao594.github.io/
     image: https://feipiao594.github.io/images/feipiao.gif
+  - title: s3loy's blog
+    website: https://blog.s3loy.tech/
+    image: https://blog.s3loy.tech/images/1.jpg
+    description: Neither emo nor demo.
     #- title: 
     #  description: 
     #  website: 
