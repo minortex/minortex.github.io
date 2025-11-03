@@ -45,7 +45,7 @@ std::vector<std::string_view> names{ "Alex", "Betty", "Caroline", "Dave","Emily"
 
 `resize`成员函数会同时改变容量和长度，`reserve`只改变容量。
 
-`emplace_back`会显示调用构造函数，直接在栈顶构建对象，如果是是临时对象，那么要注意如果有`explicit`那么不能执行隐式转换。而`push_back`会发生一次拷贝。
+`emplace_back`会显示调用构造函数，直接在堆上预留的内存构建对象，如果是是临时对象，那么要注意如果有`explicit`那么不能执行隐式转换。而`push_back`会发生一次拷贝。
 
 ## std::array
 
