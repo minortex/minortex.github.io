@@ -33,10 +33,14 @@ jobs:
     env:
       HUGO_VERSION: 0.128.0
     steps:
+      - name: Get latest Hugo version
+        id: hugo_release
+        run: echo "version=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | jq -r .tag_name | sed 's/^v//')" >> $GITHUB_OUTPUT
       - name: Install Hugo CLI
         run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
-          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+          wget -O ${{ runner.temp }}/hugo.deb \
+            https://github.com/gohugoio/hugo/releases/download/v${{ steps.hugo_release.outputs.version }}/hugo_extended_${{ steps.hugo_release.outputs.version }}_linux-amd64.deb
+            sudo dpkg -i ${{ runner.temp }}/hugo.deb
       - name: Install Dart Sass
         run: sudo snap install dart-sass
       - name: Checkout
