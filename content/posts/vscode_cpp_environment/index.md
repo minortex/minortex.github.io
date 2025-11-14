@@ -20,7 +20,7 @@ title = '搭建基于VSCode的跨平台C++学习环境'
 
 很简单，直接安装这些软件包：
 
-- **Clang**  llvm的前端，包括了clangd既语言服务器
+- **Clang**  LLVM的前端，包括了Clangd即语言服务器
 - **GCC/LLVM** 编译器
 - **CMake** 依赖管理/构建系统
 - **Ninja** 构建器
