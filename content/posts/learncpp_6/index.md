@@ -47,6 +47,8 @@ std::vector<std::string_view> names{ "Alex", "Betty", "Caroline", "Dave","Emily"
 
 `emplace_back`会显示调用构造函数，直接在堆上预留的内存构建对象，如果是是临时对象，那么要注意如果有`explicit`那么不能执行隐式转换。而`push_back`会发生一次拷贝。
 
+在 `make_unique` 下，始终会产生一次拷贝，此时两者表现一致。
+
 ## std::array
 
 `array` 大部分功能都与 `constexpr` 兼容。
