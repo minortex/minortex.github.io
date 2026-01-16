@@ -36,7 +36,7 @@ unified-delay: true
 
 secret: '<your-secret>'
 external-controller: 127.0.0.1:9099
-external-ui: "<your-borad-path>"
+external-ui: "<your-board-path>"
 external-controller-cors:
   allow-private-network: true
   allow-origins:
@@ -96,25 +96,22 @@ dns:
   ipv6: true
   enhanced-mode: fake-ip
   fake-ip-filter:
-    - '+.lan'
-    - '+.local'
-    - 'geosite:cn'
+    - 'geosite:cn,private,connectivity-check'
   default-nameserver:
     - 119.29.29.29
     - 223.5.5.5
+  direct-nameserver: #让走直连的cdn的规则用国内dns
+    - https://doh.pub/dns-query#ecs=<your-real-ip-range>
+    - https://dns.alidns.com/dns-query#ecs=<your-real-ip-range> 
   respect-rules: true # 遵守规则，把googledns发给远端，远端用googledns来解析，然后返回ip
   nameserver:
     - https://dns.google/dns-query
   nameserver-policy:
     '<your-airport-sub-url>': # 防止死锁，让小众域名走国内dns获取ip（订阅不走proxy-server-nameserver），以便开始。
-      - https://doh.pub/dns-quer
-    geosite:cn,apple,private:
-      - system # 如果不稳定，那么就注释掉，直接用doh吧
-      - https://dns.alidns.com/dns-query#ecs=<your-real-ip-range>
-      - https://doh.pub/dns-query#ecs=<your-real-ip-range> # 用于cdn优
-   proxy-server-nameserver: # 不配不能远程解析dns
-     - https://doh.pub/dns-query
-     - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+  proxy-server-nameserver: # 不配不能远程解析dns
+      - https://dns.alidns.com/dns-query#ecs=<your-real-ip-range> 
+      - https://doh.pub/dns-query#ecs=<your-real-ip-range>  # 用于cdn优化
             
 
 rules:
@@ -172,6 +169,8 @@ redir-host 的思路其实跟 fake-ip 类似，既然都折腾 redir-host，就�
 
 相比 fake-ip，少了 fake-ip-filter，多了 sniffer 。
 
+- 后面研究了下用 `direct-nameserver` 可以直接在 `rules` 里面写更统一，所以 `nameserver-policy` 只留防死锁规则了。
+
 ```yaml
 dns:
   listen: :1053
@@ -182,19 +181,20 @@ dns:
   default-nameserver:
     - 119.29.29.29
     - 223.5.5.5
-  respect-rules: true # 遵守规则，把googledns发给远端，远端用googledns来解析，然后返回域名
+  direct-nameserver: #让走直连的cdn的规则用国内dns
+    - https://doh.pub/dns-query#ecs=<your-real-ip-range>
+    - https://dns.alidns.com/dns-query#ecs=<your-real-ip-range>
+  proxy-server-nameserver:
+    - system
+    # 如果系统dns污染，才用doh。使用system dns对三网bgp更加友好。
+    # - https://doh.pub/dns-query#ecs=<your-real-ip-range>
+    # - https://dns.alidns.com/dns-query#ecs=<your-real-ip-range>
+  respect-rules: true # dns遵守路由规则，让代理服务器帮我们问谷歌。
   nameserver:
-    - https://dns.google/dns-query
+    - https://dns.google/dns-query # 为什么只用google？因为是最全的dns。但是不能直连是一大缺点，也就是导致死锁的产生。
   nameserver-policy:
-    '<your-airport-sub-url>': # 防止死锁，让小众域名走国内dns获取ip（订阅不走proxy-server-nameserver），以便开始。
+    '<your-airport-sub-url>': # 防止死锁，让小众域名走国内dns获取ip（订阅不走proxy-server-nameserver），才能有代理服务器的配置文件。
       - https://doh.pub/dns-query
-    geosite:cn:
-      - system # 如果不稳定，那么就注释掉，直接用doh吧
-      - https://dns.alidns.com/dns-query#ecs=<your-real-ip-range>
-      - https://doh.pub/dns-query#ecs=<your-real-ip-range> # 用于cdn优化
-   proxy-server-nameserver:
-     - https://doh.pub/dns-query
-     - https://dns.alidns.com/dns-query
 
 sniffer:
   enable: true
@@ -211,6 +211,7 @@ sniffer:
     - "+.push.apple.com"
 
 rules: # 非常简单，有嗅探器的存在无需GEOSITE,CN
+  - GEOSITE,CN,DIRECT
   - GEOIP,LAN,DIRECT
   - GEOIP,CN,DIRECT
   - MATCH,select
