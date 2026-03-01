@@ -192,7 +192,7 @@ Timeout waiting for specified message.
 
 请注意`uboot`版本可能与固件版本相关，经过测试天灵25年3月编译的`uboot`是可以使用我上面的方法刷入237固件。
 
-[padavanonly/immortalwrt-mt798x-6.6](https://github.com/)
+[padavanonly/immortalwrt-mt798x-6.6](https://github.com/padavanonly/immortalwrt-mt798x-6.6)
 
 #### 旧版固件
 
