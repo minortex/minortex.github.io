@@ -11,6 +11,8 @@ tags: ["Android"]
 > 家里的创维盒子需要手机遥控功能，虽说百变遥控可以通过root实现，但是毕竟是十年前的老软件了，随着手机系统更新已经落伍了，但是一众新软件都是通过无障碍实现的鼠标和键盘输入，对于没有原生设置的电视，要如何解决呢？
 > 小米6的20.1.16版本miui有个大bug:处于底部的通知栏磁贴怎么都拖不上去，就只能放弃不用了吗？  
 
+但是需要注意的是，修改所有的`secure`命名空间下面的设置项都需要 root 权限。
+
 ## 简单上手
 
 ### 原理介绍
@@ -44,13 +46,13 @@ tags: ["Android"]
 - **旋转的无障碍“旋转”的无障碍权限**  
 
 ```bash
-settings secure enabled_accessibility_services personal.fameit.nl.eg/nl.fameit.rotate.RotateAccessibilityService
+settings put secure enabled_accessibility_services personal.fameit.nl.eg/nl.fameit.rotate.RotateAccessibilityService
 ```
 
 - **KDE Connect的鼠标控制**  
 
 ```bash
-settings secure enabled_accessibility_services org.kde.kdeconnect_tp/org.kde.kdeconnect.Plugins.MouseReceiverPlugin.MouseReceiverService
+settings put secure enabled_accessibility_services org.kde.kdeconnect_tp/org.kde.kdeconnect.Plugins.MouseReceiverPlugin.MouseReceiverService
 ```
 
 - **KDE Connect的通知使用权**:  
