@@ -1,7 +1,7 @@
 +++
 date = '2026-01-06T10:05:49+08:00'
 draft = true
-title = 'mihomo裸核配置不完全指北'
+title = 'mihomo 裸核配置不完全指北'
 +++
 
 之前配置了很多，形成了一套自洽的规则，但是回头看根本没看懂自己当时写的什么，所以还是记录一下。
@@ -43,17 +43,17 @@ external-controller-cors:
   - 'localhost:9099'
 
 experimental:
-  dialer-ip4p-convert: true # 啊...ip4p没什么用，支持的太少了
+  dialer-ip4p-convert: true # 啊...ip4p 没什么用，支持的太少了
 
 profile:
   store-selected: true
-  store-fake-ip: true # 存储 fake-ip 一定要开啊，你也不想重启mihomo断网吧？
+  store-fake-ip: true # 存储 fake-ip 一定要开啊，你也不想重启 mihomo 断网吧？
 
 ```
 
 ## tun 
 
-对于追求体验的人来说，绝对逃不掉 tun 的，因为系统/socks代理毕竟不是所有东西都走。
+对于追求体验的人来说，绝对逃不掉 tun 的，因为系统/socks 代理毕竟不是所有东西都走。
 
 
 ```yaml
@@ -65,7 +65,7 @@ tun:
   auto-route: true
   device: Mihomo
   mtu: 1500
-  stack: system # 出现问题就改 gvisor ，但是 system 的性能最高
+  stack: system # 出现问题就改 gvisor，但是 system 的性能最高
   strict-route: true # 开启多宿主的时候，就开这个
   exclude-interface:
     - Tailscale
@@ -100,18 +100,18 @@ dns:
   default-nameserver:
     - 119.29.29.29
     - 223.5.5.5
-  direct-nameserver: #让走直连的cdn的规则用国内dns
+  direct-nameserver: #让走直连的 cdn 的规则用国内 dns
     - https://doh.pub/dns-query#ecs=<your-real-ip-range>
     - https://dns.alidns.com/dns-query#ecs=<your-real-ip-range> 
-  respect-rules: true # 遵守规则，把googledns发给远端，远端用googledns来解析，然后返回ip
+  respect-rules: true # 遵守规则，把 googledns 发给远端，远端用 googledns 来解析，然后返回 ip
   nameserver:
     - https://dns.google/dns-query
   nameserver-policy:
-    '<your-airport-sub-url>': # 防止死锁，让小众域名走国内dns获取ip（订阅不走proxy-server-nameserver），以便开始。
+    '<your-airport-sub-url>': # 防止死锁，让小众域名走国内 dns 获取 ip（订阅不走 proxy-server-nameserver），以便开始。
       - https://doh.pub/dns-query
-  proxy-server-nameserver: # 不配不能远程解析dns
+  proxy-server-nameserver: # 不配不能远程解析 dns
       - https://dns.alidns.com/dns-query#ecs=<your-real-ip-range> 
-      - https://doh.pub/dns-query#ecs=<your-real-ip-range>  # 用于cdn优化
+      - https://doh.pub/dns-query#ecs=<your-real-ip-range>  # 用于 cdn 优化
             
 
 rules:
@@ -125,7 +125,7 @@ rules:
 
 这个版本不支持国内小众网站，好处就是配置清晰明了。
 
-~~不好意思，ns多就可以为所欲为~~
+~~不好意思，ns 多就可以为所欲为~~
 
 ```yaml
 dns:
@@ -167,7 +167,7 @@ rules:
 
 redir-host 的思路其实跟 fake-ip 类似，既然都折腾 redir-host，就用复杂那一套吧。
 
-相比 fake-ip，少了 fake-ip-filter，多了 sniffer 。
+相比 fake-ip，少了 fake-ip-filter，多了 sniffer。
 
 - 后面研究了下用 `direct-nameserver` 可以直接在 `rules` 里面写更统一，所以 `nameserver-policy` 只留防死锁规则了。
 
@@ -181,19 +181,19 @@ dns:
   default-nameserver:
     - 119.29.29.29
     - 223.5.5.5
-  direct-nameserver: #让走直连的cdn的规则用国内dns
+  direct-nameserver: #让走直连的 cdn 的规则用国内 dns
     - https://doh.pub/dns-query#ecs=<your-real-ip-range>
     - https://dns.alidns.com/dns-query#ecs=<your-real-ip-range>
   proxy-server-nameserver:
     - system
-    # 如果系统dns污染，才用doh。使用system dns对三网bgp更加友好。
+    # 如果系统 dns 污染，才用 doh。使用 system dns 对三网 bgp 更加友好。
     # - https://doh.pub/dns-query#ecs=<your-real-ip-range>
     # - https://dns.alidns.com/dns-query#ecs=<your-real-ip-range>
-  respect-rules: true # dns遵守路由规则，让代理服务器帮我们问谷歌。
+  respect-rules: true # dns 遵守路由规则，让代理服务器帮我们问谷歌。
   nameserver:
-    - https://dns.google/dns-query # 为什么只用google？因为是最全的dns。但是不能直连是一大缺点，也就是导致死锁的产生。
+    - https://dns.google/dns-query # 为什么只用 google？因为是最全的 dns。但是不能直连是一大缺点，也就是导致死锁的产生。
   nameserver-policy:
-    '<your-airport-sub-url>': # 防止死锁，让小众域名走国内dns获取ip（订阅不走proxy-server-nameserver），才能有代理服务器的配置文件。
+    '<your-airport-sub-url>': # 防止死锁，让小众域名走国内 dns 获取 ip（订阅不走 proxy-server-nameserver），才能有代理服务器的配置文件。
       - https://doh.pub/dns-query
 
 sniffer:
@@ -210,7 +210,7 @@ sniffer:
     - "Mijia Cloud"
     - "+.push.apple.com"
 
-rules: # 非常简单，有嗅探器的存在无需GEOSITE,CN
+rules: # 非常简单，有嗅探器的存在无需 GEOSITE,CN
   - GEOSITE,CN,DIRECT
   - GEOIP,LAN,DIRECT
   - GEOIP,CN,DIRECT
@@ -251,23 +251,23 @@ proxy-groups:
       - "provider_A"
       - "provider_B"
 
-  - name: 日本-自动选择
+  - name: 日本 - 自动选择
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 80
     use:
       - "provider_A"
-    filter: "(?i)日本|JP|Japan" # 自动正则筛选所有机场中的日本节点
+    filter: "(?i) 日本|JP|Japan" # 自动正则筛选所有机场中的日本节点
 
-  - name: 新加坡-自动选择
+  - name: 新加坡 - 自动选择
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 80
     use:
           - "provider_A"
-    filter: "(?i)新加坡|SG|Singapore"
+    filter: "(?i) 新加坡|SG|Singapore"
 
 # 付费机场
 

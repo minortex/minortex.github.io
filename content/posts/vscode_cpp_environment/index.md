@@ -1,26 +1,26 @@
 +++
 date = '2025-10-04T16:45:12+08:00'
 draft = false
-title = '搭建基于VSCode的跨平台C++学习环境'
+title = '搭建基于 VSCode 的跨平台 C++ 学习环境'
 +++
 
 ## 前言
 
-早期学习C/C++是非常痛苦的，不仅被老师要求下载20G的宇宙IDE VS，还得自己格式化代码，这就是我一开始对此不感冒的原因。
+早期学习 C/C++ 是非常痛苦的，不仅被老师要求下载 20G 的宇宙 IDE VS，还得自己格式化代码，这就是我一开始对此不感冒的原因。
 
 但是随着学的东西多了，不写代码也不行啊，我才渐渐发现有那么多强大的工具我不知道。
 
-所以这里记录一下自己的折腾过程，希望能帮到初学C++的朋友们。
+所以这里记录一下自己的折腾过程，希望能帮到初学 C++ 的朋友们。
 
 ## 准备
 
-由于我主要是在ArchLinux上面学习，偶尔会在Windows上面测试，这里大部分内容都会在Linux上面完成，不过别担心，这些工具都是跨平台的。
+由于我主要是在 ArchLinux 上面学习，偶尔会在 Windows 上面测试，这里大部分内容都会在 Linux 上面完成，不过别担心，这些工具都是跨平台的。
 
 ### Linux
 
 很简单，直接安装这些软件包：
 
-- **Clang**  LLVM的前端，包括了Clangd即语言服务器
+- **Clang**  LLVM 的前端，包括了 Clangd 即语言服务器
 - **GCC/LLVM** 编译器
 - **CMake** 依赖管理/构建系统
 - **Ninja** 构建器
@@ -31,7 +31,7 @@ title = '搭建基于VSCode的跨平台C++学习环境'
 
 需要安装的包：
 
-- **llvm-mingw** 包含了clangd/clang了
+- **llvm-mingw** 包含了 clangd/clang 了
 - **CMake**
 - **Ninja**
 
@@ -44,7 +44,7 @@ title = '搭建基于VSCode的跨平台C++学习环境'
 
 ---
 
-安装VSCode不用多说了吧？
+安装 VSCode 不用多说了吧？
 
 安装这些拓展：
 
@@ -54,13 +54,13 @@ title = '搭建基于VSCode的跨平台C++学习环境'
 
 ![extensions](extensions.webp)
 
-### CMake拓展设置
+### CMake 拓展设置
 
 按照如图显示的配置`CMake`生成的数据库文件，以便后续的`Clangd`查找。
 
 ![cmake_tools](cmake_tools.webp)
 
-### Clangd拓展设置
+### Clangd 拓展设置
 
 填入`Clangd`寻找数据库的位置
 
@@ -72,7 +72,7 @@ title = '搭建基于VSCode的跨平台C++学习环境'
 
 ## 创建项目
 
-### 配置CMake
+### 配置 CMake
 
 在你的项目根文件夹建立一个主`CMakeLists.txt`,内容可以这么写：
 
@@ -124,7 +124,7 @@ endforeach()
 # )
 ```
 
-你可以根据自己的需要，设置C++标准，扫描的文件夹，链接的库。这里就以`src`目录放置源文件，`include`放置头文件为例。
+你可以根据自己的需要，设置 C++ 标准，扫描的文件夹，链接的库。这里就以`src`目录放置源文件，`include`放置头文件为例。
 
 进入`src/current`创建一个子`CMakeLists.txt`，内容写上：
 
@@ -163,7 +163,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/.
 
 ![quick_start](quick_start.webp)
 
-快速入门-添加新预设-从编译器创建
+快速入门 - 添加新预设 - 从编译器创建
 
 ![create_from_compiler](create_from_compiler.webp)
 
@@ -195,7 +195,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/.
 
 ![build_and_run](build_and_run.webp)
 
-### 配置task
+### 配置 task
 
 有人说，哎，我的<key>F5</key>一键调试呢？
 

@@ -1,7 +1,7 @@
 +++
 date = '2025-11-01T21:57:31+08:00'
 draft = false
-title = '关于Linux的swap那些事情'
+title = '关于 Linux 的 swap 那些事情'
 +++
 
 ## 引子
