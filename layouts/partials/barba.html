@@ -1,4 +1,4 @@
-<!-- 引入 Barba.js 和 GSAP -->
+<!-- 引入 Barba.js 和 GSAP 实现淡入淡出效果 -->
 <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
@@ -27,20 +27,20 @@
   barba.hooks.after(() => {
     // 等待新页面的 DOM 完全准备好
     setTimeout(() => {
-      // 方法1：触发 resize，让主题重新计算位置
+      // 方法 1：触发 resize，让主题重新计算位置
       window.dispatchEvent(new Event('resize'));
-      
-      // 方法2：手动修复菜单 active 类（针对 basic.html 中的逻辑）
+
+      // 方法 2：手动修复菜单 active 类（针对 basic.html 中的逻辑）
       if (typeof $ !== 'undefined') {
         // 清除所有菜单项上的 active 类
-        $('nav a, header a, .menu-item').each(function() {
+        $('nav a, header a, .menu-item').each(function () {
           $(this).removeClass('active');
           $(this).find('p').removeClass('active');  // 对应 basic.html 中的 $(e).children("p").addClass("active")
         });
-        
+
         // 根据当前 URL 重新添加 active 类
         const currentPath = window.location.pathname;
-        $('nav a, header a, .menu-item').each(function() {
+        $('nav a, header a, .menu-item').each(function () {
           const $link = $(this);
           const href = $link.attr('href');
           if (href === currentPath || (href !== '/' && currentPath.startsWith(href))) {
