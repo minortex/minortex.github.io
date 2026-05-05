@@ -2,6 +2,7 @@
 date = '2025-10-04T16:45:12+08:00'
 draft = false
 title = '搭建基于 VSCode 的跨平台 C++ 学习环境'
+tags = ['C++', 'Vim']
 +++
 
 ## 前言

@@ -2,6 +2,7 @@
 date = '2026-04-22T23:00:09+08:00'
 draft = false
 title = 'UPS 折腾记'
+tags = ['硬件', 'Linux']
 +++
 
 ## 前言

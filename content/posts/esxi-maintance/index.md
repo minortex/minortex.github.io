@@ -2,6 +2,7 @@
 date = '2025-06-20T23:53:22+08:00'
 draft = false
 title = '维护 Esxi 的小记'
+tags = ['虚拟化']
 +++
 
 ## 前言

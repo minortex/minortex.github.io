@@ -2,8 +2,8 @@
 date = '2025-04-18T23:38:19+08:00'
 draft = false
 title = '字形、字体以及我的配置'
+tags = ['Linux', 'Arch Linux']
 description = '花了点时间了解字体相关的知识~'
-tags = ["Arch"]
 +++
 
 终于受不了终端里那丑得要死的宋体了，开干！XML？拿来把你！

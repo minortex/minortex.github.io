@@ -2,6 +2,7 @@
 date = '2025-11-11T21:45:38+08:00'
 draft = true
 title = '一些驯服 vim 的小技巧'
+tags = ['Vim']
 +++
 
 ## 前言

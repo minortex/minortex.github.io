@@ -2,6 +2,7 @@
 date = '2025-11-19T15:54:44+08:00'
 draft = true
 title = 'Csapp'
+tags = ['学习笔记', 'C']
 +++
 
 ## ELF 的分布

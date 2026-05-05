@@ -2,6 +2,7 @@
 date = '2025-08-30T12:33:31+08:00'
 draft = false
 title = '给老机 x200 刷开源 BIOS--Coreboot！'
+tags = ['硬件']
 lastmod = '2025-09-12T21:02:10+08:00'
 +++
 

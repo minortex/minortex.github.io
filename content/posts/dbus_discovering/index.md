@@ -2,6 +2,7 @@
 date = '2025-11-21T17:56:21+08:00'
 draft = false
 title = 'Dbus 探索'
+tags = ['Linux']
 +++
 
 ## 前言

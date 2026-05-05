@@ -2,6 +2,7 @@
 date = '2025-11-01T21:57:31+08:00'
 draft = false
 title = '关于 Linux 的 swap 那些事情'
+tags = ['Linux']
 +++
 
 ## 引子

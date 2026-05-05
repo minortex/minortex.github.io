@@ -2,6 +2,7 @@
 date = '2025-09-23T21:05:32+08:00'
 draft = false
 title = 'RouterOS 的 IPv6 多网段统一进行 NAPT 转换'
+tags = ['网络']
 lastmod = '2025-10-04T16:38:46+08:00'
 +++
 

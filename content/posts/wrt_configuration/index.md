@@ -1,8 +1,9 @@
----
-title: "Immortalwrt 折腾日记"
-date: 2025-07-19T14:15:52+08:00
-draft: false
----
++++
+title = "Immortalwrt 折腾日记"
+date = 2025-07-19T14:15:52+08:00
+tags = ['OpenWrt', '网络']
+draft = false
++++
 
 ## 前言
 

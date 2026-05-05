@@ -31,6 +31,7 @@ showTableOfContents = true
 showBreadcrumbs = true
 showPagination = true
 showhero = true
+showTaxonomies = true
 heroStyle = "background"
 
 [list]

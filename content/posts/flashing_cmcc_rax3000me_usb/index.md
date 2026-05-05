@@ -2,6 +2,7 @@
 date = '2025-07-12T13:47:15+08:00'
 draft = false
 title = '中国移动 RAX3000Me USB3.0 版折腾小记'
+tags = ['OpenWrt', '硬件']
 +++
 
 ## 前言

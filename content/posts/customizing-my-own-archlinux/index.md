@@ -2,8 +2,8 @@
 date = '2024-12-09T15:42:53+08:00'
 draft = false
 title = '我的 ArchLinux 折腾记录'
+tags = ['Linux', 'Arch Linux']
 description = "arch 赛高！"
-tags = ["Arch", "Chromebook"]
 +++
 
 ## 前言

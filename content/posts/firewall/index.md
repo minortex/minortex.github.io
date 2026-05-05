@@ -2,8 +2,8 @@
 date = '2025-04-25T21:46:16+08:00'
 draft = false
 title = '那些防火墙的事情'
+tags = ['防火墙', 'Linux']
 description = 'iptables&nftables&firewalld 的世界！'
-tags = ['Arch']
 +++
 
 ## 前言

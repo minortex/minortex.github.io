@@ -2,6 +2,7 @@
 date = '2026-01-07T01:42:21+08:00'
 draft = false
 title = 'Immortalwrt 折腾日记（2）'
+tags = ['OpenWrt', '网络']
 +++
 
 ## 配置多线多内网
