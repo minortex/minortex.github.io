@@ -1,0 +1,55 @@
+<!-- 引入 Barba.js 和 GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<!-- 引入 jQuery（如果主题没有全局引入的话） -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+  barba.init({
+    transitions: [{
+      name: 'fade-transition',
+      leave(data) {
+        return gsap.to(data.current.container, {
+          opacity: 0,
+          duration: 0.2
+        });
+      },
+      enter(data) {
+        return gsap.from(data.next.container, {
+          opacity: 0,
+          duration: 0.2
+        });
+      }
+    }]
+  });
+
+  barba.hooks.after(() => {
+    // 等待新页面的 DOM 完全准备好
+    setTimeout(() => {
+      // 方法1：触发 resize，让主题重新计算位置
+      window.dispatchEvent(new Event('resize'));
+      
+      // 方法2：手动修复菜单 active 类（针对 basic.html 中的逻辑）
+      if (typeof $ !== 'undefined') {
+        // 清除所有菜单项上的 active 类
+        $('nav a, header a, .menu-item').each(function() {
+          $(this).removeClass('active');
+          $(this).find('p').removeClass('active');  // 对应 basic.html 中的 $(e).children("p").addClass("active")
+        });
+        
+        // 根据当前 URL 重新添加 active 类
+        const currentPath = window.location.pathname;
+        $('nav a, header a, .menu-item').each(function() {
+          const $link = $(this);
+          const href = $link.attr('href');
+          if (href === currentPath || (href !== '/' && currentPath.startsWith(href))) {
+            $link.addClass('active');
+            $link.children('p').addClass('active');  // 模拟主题的原始行为
+            $link.attr('aria-current', 'page');
+          }
+        });
+      }
+    }, 50);
+  });
+</script>
