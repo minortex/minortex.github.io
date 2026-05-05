@@ -32,6 +32,8 @@ showBreadcrumbs = true
 showPagination = true
 showhero = true
 showTaxonomies = true
+showRelatedContent = true
+relatedContentLimit = 5
 heroStyle = "background"
 
 [list]

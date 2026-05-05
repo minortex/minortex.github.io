@@ -3,6 +3,8 @@ date = '2025-09-19T19:13:57+08:00'
 draft = false
 title = 'cpp 学习笔记 (2)'
 tags = ['学习笔记', 'C++']
+series = ["CPP 学习"]
+series_order = 2
 lastmod = '2025-09-25T10:55:18+08:00'
 +++
 ## 符号变量

@@ -3,6 +3,8 @@ date = '2025-10-22T16:29:09+08:00'
 draft = false
 title = 'cpp 学习笔记 (7)'
 tags = ['学习笔记', 'C++']
+series = ["CPP 学习"]
+series_order = 7
 +++
 
 ## 命令行参数

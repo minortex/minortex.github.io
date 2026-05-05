@@ -1,8 +1,10 @@
 +++
 date = '2025-11-06T10:23:35+08:00'
-draft = true
+draft = false
 title = 'cpp 学习笔记 (9)'
 tags = ['学习笔记', 'C++']
+series = ["CPP 学习"]
+series_order = 9
 +++
 
 ## 继承，派生

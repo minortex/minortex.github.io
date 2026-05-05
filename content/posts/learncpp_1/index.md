@@ -1,9 +1,12 @@
----
-title: "cpp 学习笔记 (1)"
-date: 2025-09-11T08:10:38+08:00
-draft: false
-lastmod: 2025-09-30T10:28:08+08:00
----
++++
+title = "cpp 学习笔记 (1)"
+date = 2025-09-11T08:10:38+08:00
+tags = ['学习笔记', 'C++']
+series = ["CPP 学习"]
+series_order = 1
+draft = false
+lastmod = 2025-09-30T10:28:08+08:00
++++
 
 ## 前言
 

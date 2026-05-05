@@ -1,8 +1,10 @@
 +++
 date = '2025-10-30T14:34:07+08:00'
-draft = true
+draft = false
 title = 'cpp 学习笔记 (8)'
 tags = ['学习笔记', 'C++']
+series = ["CPP 学习"]
+series_order = 8
 +++
 
 ## 左右值、`&&`、移动语义、智能指针
