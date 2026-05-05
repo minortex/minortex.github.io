@@ -1,8 +1,9 @@
 +++
 date = '2025-11-19T15:54:44+08:00'
 draft = true
-title = 'Csapp'
+title = 'CSAPP 笔记：ELF 加载与位置无关代码'
 tags = ['学习笔记', 'C']
+series = ['CSAPP 笔记']
 +++
 
 ## ELF 的分布

@@ -1,7 +1,7 @@
 +++
 date = '2025-07-07T21:00:20+08:00'
 draft = false
-title = '黑群晖与 PVE 折腾小记'
+title = '黑群晖与 PVE：SMART 修复与 ACL 权限'
 tags = ['虚拟化']
 +++
 ## 前言

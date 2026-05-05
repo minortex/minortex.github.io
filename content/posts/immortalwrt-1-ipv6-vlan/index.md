@@ -1,7 +1,9 @@
 +++
-title = "Immortalwrt 折腾日记"
+title = 'Immortalwrt：IPv6、VLAN 与 NDP 代理'
 date = 2025-07-19T14:15:52+08:00
 tags = ['OpenWrt', '网络']
+series = ['伪软路由']
+series_order = 1
 draft = false
 +++
 

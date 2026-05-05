@@ -1,7 +1,9 @@
 +++
 date = '2026-01-07T01:42:21+08:00'
 draft = false
-title = 'Immortalwrt 折腾日记（2）'
+title = 'Immortalwrt：多线多网与 Tailscale'
+series = ['伪软路由']
+series_order = 1
 tags = ['OpenWrt', '网络']
 +++
 

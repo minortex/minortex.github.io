@@ -1,9 +1,10 @@
 +++
 date = '2025-04-25T21:46:16+08:00'
 draft = false
-title = '那些防火墙的事情'
+title = '防火墙：iptables、nftables 与 firewalld'
 tags = ['防火墙', 'Linux']
-description = 'iptables&nftables&firewalld 的世界！'
+description = 'iptables、nftables 与 firewalld 的世界！'
+series = ['防火墙']
 +++
 
 ## 前言
