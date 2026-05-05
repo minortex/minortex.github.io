@@ -1,7 +1,7 @@
 +++
 date = '2025-10-13T08:25:04+08:00'
 draft = false
-title = 'cpp 学习笔记 (6)'
+title = '现代 C++ 笔记：容器、迭代器与算法库'
 tags = ['学习笔记', 'C++']
 series = ["CPP 学习"]
 series_order = 6

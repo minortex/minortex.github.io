@@ -1,7 +1,7 @@
 +++
 date = '2025-10-22T16:29:09+08:00'
 draft = false
-title = 'cpp 学习笔记 (7)'
+title = '现代 C++ 笔记：Lambda、运算符重载与闭包'
 tags = ['学习笔记', 'C++']
 series = ["CPP 学习"]
 series_order = 7

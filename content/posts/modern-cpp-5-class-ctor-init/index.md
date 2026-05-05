@@ -1,7 +1,7 @@
 +++
 date = '2025-09-29T08:25:14+08:00'
 draft = false
-title = 'cpp 学习笔记 (5)'
+title = '现代 C++ 笔记：类、构造函数与成员初始化'
 tags = ['学习笔记', 'C++']
 series = ["CPP 学习"]
 series_order = 5

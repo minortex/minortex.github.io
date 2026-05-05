@@ -1,7 +1,7 @@
 +++
 date = '2025-11-06T10:23:35+08:00'
 draft = false
-title = 'cpp 学习笔记 (9)'
+title = '现代 C++ 笔记：继承、虚函数与异常处理'
 tags = ['学习笔记', 'C++']
 series = ["CPP 学习"]
 series_order = 9

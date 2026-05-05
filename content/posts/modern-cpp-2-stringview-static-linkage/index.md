@@ -1,7 +1,7 @@
 +++
 date = '2025-09-19T19:13:57+08:00'
 draft = false
-title = 'cpp 学习笔记 (2)'
+title = '现代 C++ 笔记：string_view、static 与内部链接'
 tags = ['学习笔记', 'C++']
 series = ["CPP 学习"]
 series_order = 2
