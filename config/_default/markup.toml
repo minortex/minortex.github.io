@@ -1,5 +1,12 @@
+# 不使用类名，开启复制按钮
 [highlight]
 noClasses = false
 
+# 保留原始 markdown 的 html 代码
 [goldmark.renderer]
 unsafe = true
+
+# 图片和代码块支持属性，markdown 原生功能
+[goldmark.parser.attribute]
+block = true
+title = true
