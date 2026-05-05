@@ -5,7 +5,7 @@ showDate: false
 showReadingTime: false
 showWordCount: false
 showTableOfContents: false
-comments: false
+showComments: false
 ---
 
 ## 关于我

@@ -33,6 +33,7 @@ showPagination = true
 showhero = true
 showTaxonomies = true
 showRelatedContent = true
+showComments = true
 relatedContentLimit = 5
 heroStyle = "background"
 

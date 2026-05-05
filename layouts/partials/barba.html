@@ -50,7 +50,33 @@
           }
         });
       }
+
+      // ========== 新增：强制 Twikoo 重新渲染评论区 ==========
+      if (typeof twikoo !== 'undefined') {
+        // console.log('Twikoo 已存在，强制重新渲染评论区');
+        // 重新调用 init 方法，让 Twikoo 重新拉取当前页面的评论
+        twikoo.init({
+          envId: 'https://twikoo.texsd.eu.org',  // 换成你的实际地址
+          el: '#tcomment',
+          path: window.location.pathname,
+          lang: 'zh-CN',
+        });
+      } else {
+        // 如果 Twikoo 还没加载，就动态加载
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/twikoo@latest/dist/twikoo.all.min.js';
+        script.onload = () => {
+          twikoo.init({
+            envId: 'https://twikoo.texsd.eu.org',
+            el: '#tcomment',
+            path: window.location.pathname,
+            lang: 'zh-CN',
+          });
+        };
+        document.head.appendChild(script);
+      }
+      // ====================================================
+
     }, 50);
-    document.dispatchEvent(new Event('DOMContentLoaded'));
   });
 </script>

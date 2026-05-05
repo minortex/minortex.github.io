@@ -27,12 +27,14 @@ showDate: false
 showReadingTime: false
 showWordCount: false
 showTableOfContents: false
-comments: false
+showComments: true
 showhero: true
 herostyle: background
 ---
 
 欢迎交换~
+
+在评论区留言也可
 
 这是我的信息：
 
