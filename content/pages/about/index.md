@@ -12,7 +12,7 @@ showComments: false
 
 应该写些什么呢？
 
-是一个从 10 年左右开始喜欢折腾 CS 相关的、并且到现在仍然热爱的自由软件爱好者。
+是一个从 10 年左右开始喜欢折腾计算机相关的、并且到现在仍然热爱 CS 的自由软件爱好者。
 
 始于 Windows 装系统，到 Android 刷机，到路由器、NAS，最后将 ArchLinux 作为主力的系统管理员。
 
@@ -42,6 +42,6 @@ showComments: false
 
 本站使用 Blowfish 主题，基于 Hugo。
 
-- 头像 [@FURLESS_](https://space.bilibili.com/588453/dynamic)
+- 头像 [@FURLESS_](https://space.bilibili.com/588453)
 - 首页背景图 [@木子森森森](https://www.pixiv.net/users/14292311)
 - 友链背景图 [@雪菜](https://space.bilibili.com/13225909)
