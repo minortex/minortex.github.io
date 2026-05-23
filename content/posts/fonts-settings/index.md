@@ -4,6 +4,7 @@ draft = false
 title = '字形、字体以及我的配置'
 tags = ['Linux', 'Arch Linux']
 description = '花了点时间了解字体相关的知识~'
+lastmod = '2026-05-24 02:00:15+08:00'
 +++
 
 终于受不了终端里那丑得要死的宋体了，开干！XML？拿来把你！
@@ -81,10 +82,10 @@ FiraMonoNerdFontMono-Regular.otf: "FiraMono Nerd Font Mono" "Regular"
 我还额外安装了`otf-firamono-nerd`来实现 shell 的 emoji 图标，记住不！要！安！装！nerd-fonts 包集！那总共有`7GiB+`！
 
 我是强烈推荐去修改默认字体配置文件的，虽然 xml 的可读性确实不怎么样，但是根据别人的改嘛，查找替换也不算太难。这里就贴一下我的方案吧：
+
 `~/.config/fontconfig/conf.d/99-notocjk.conf`
 ```xml
-<!-- 在每个字体最后都配置了emoji，使得使用rime的时候候选框显示正确的emoji -->
-`<?xml version='1.0'?>
+<?xml version='1.0'?>
 <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
 <fontconfig>
  <!-- 配置黑体-->
@@ -97,7 +98,6 @@ FiraMonoNerdFontMono-Regular.otf: "FiraMono Nerd Font Mono" "Regular"
   </test>
   <edit binding="strong" mode="prepend" name="family">
    <string>Noto Sans CJK SC</string>
-   <string>Noto Color Emoji</string>
   </edit>
  </match>
  <!-- 配置宋体-->
@@ -110,7 +110,6 @@ FiraMonoNerdFontMono-Regular.otf: "FiraMono Nerd Font Mono" "Regular"
   </test>
   <edit binding="strong" mode="prepend" name="family">
    <string>Noto Serif CJK SC</string>
-   <string>Noto Color Emoji</string>
   </edit>
  </match>
   <match target="pattern">
@@ -121,20 +120,98 @@ FiraMonoNerdFontMono-Regular.otf: "FiraMono Nerd Font Mono" "Regular"
  <!-- 这里等宽配置了两个字体，原因是FiraMono没有中文的等宽字体，下面写上Noto的等宽字体就可以自动fallback了-->
     <string>FiraMono Nerd Font Mono</string>
    <string>Noto Sans Mono CJK SC</string>
-   <string>Noto Color Emoji</string>
-  </edit>
-    </match>
-   <match target="font">
-  <edit name="hinting" mode="assign">
-   <bool>true</bool>
-  </edit>
- </match>
- <match target="font">
-  <edit name="hintstyle" mode="assign">
-   <const>hintfull</const>
   </edit>
  </match>
  <dir>~/.local/share/fonts</dir>
+</fontconfig>
+```
+
+懒得在 kde 里面设置的话，可以直接把这个放到 conf.d:
+```xml
+<?xml version='1.0'?>
+<!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
+<fontconfig>
+ <!-- 
+ Artificial oblique for fonts without an italic or oblique version
+ -->
+ <match target="font">
+  <!-- check to see if the font is roman -->
+  <test name="slant">
+   <const>roman</const>
+  </test>
+  <!-- check to see if the pattern requested non-roman -->
+  <test compare="not_eq" name="slant" target="pattern">
+   <const>roman</const>
+  </test>
+  <!-- multiply the matrix to slant the font -->
+  <edit mode="assign" name="matrix">
+   <times>
+    <name>matrix</name>
+    <matrix>
+     <double>1</double>
+     <double>0.2</double>
+     <double>0</double>
+     <double>1</double>
+    </matrix>
+   </times>
+  </edit>
+  <!-- pretend the font is oblique now -->
+  <edit mode="assign" name="slant">
+   <const>oblique</const>
+  </edit>
+  <!-- and disable embedded bitmaps for artificial oblique -->
+  <edit mode="assign" name="embeddedbitmap">
+   <bool>false</bool>
+  </edit>
+ </match>
+ <!--
+ Synthetic emboldening for fonts that do not have bold face available
+ -->
+ <match target="font">
+  <!-- check to see if the weight in the font is less than medium which possibly need emboldening -->
+  <test compare="less_eq" name="weight">
+   <const>medium</const>
+  </test>
+  <!-- check to see if the pattern requests bold -->
+  <test compare="more_eq" name="weight" target="pattern">
+   <const>bold</const>
+  </test>
+  <!--
+		  set the embolden flag
+		  needed for applications using cairo, e.g. gucharmap, gedit, ...
+		-->
+  <edit mode="assign" name="embolden">
+   <bool>true</bool>
+  </edit>
+  <!--
+		 set weight to bold
+		 needed for applications using Xft directly, e.g. Firefox, ...
+		-->
+  <edit mode="assign" name="weight">
+   <const>bold</const>
+  </edit>
+ </match>
+ <match target="font">
+  <edit mode="assign" name="rgba">
+   <const>none</const>
+  </edit>
+ </match>
+ <match target="font">
+  <edit mode="assign" name="hinting">
+   <bool>false</bool>
+  </edit>
+ </match>
+ <match target="font">
+  <edit mode="assign" name="hintstyle">
+   <const>hintnone</const>
+  </edit>
+ </match>
+ <dir>~/.fonts</dir>
+ <match target="font">
+  <edit mode="assign" name="antialias">
+   <bool>true</bool>
+  </edit>
+ </match>
 </fontconfig>
 ```
 
@@ -145,6 +222,7 @@ FiraMonoNerdFontMono-Regular.otf: "FiraMono Nerd Font Mono" "Regular"
 Windows 中文版默认是使用微软雅黑的，修改需要改注册表。所以一般来说我们都会在软件里面单独修改，像 Firefox，Windows Terminal，VSCode 都支持。而其他的应用我选择用微软雅黑，因为 Windows 运行的旧应用很多都是硬编码微软雅黑的，调整他们会导致一些奇怪的问题，下面说说。
 
 这是个版权字体（属于方正）正因为如此应该不少人吃了官司吧（？
+
 ## 点阵字体和矢量字体
 
 点阵字体是以前低分辨率的时代使用的，现在已经基本淘汰了。但是你可能偶尔还能看到有人发那些锯齿感字体非常严重的图片，那大概就是用 xp 截图出来的。
