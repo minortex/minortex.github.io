@@ -16,6 +16,10 @@ links:
     website: https://blog.s3loy.tech/
     image: https://blog.s3loy.tech/images/1.jpg
     description: Neither emo nor demo.
+  - title: Blue Space
+    description: 在宇宙角落找寻破碎的心
+    website: https://blog.bluespace.ren
+    image: https://blog.bluespace.ren/img/soine.png
     #- title: 
     #  description: 
     #  website: 
