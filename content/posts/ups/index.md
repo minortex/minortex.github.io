@@ -19,10 +19,12 @@ tags = ['硬件', 'Linux']
 
 driver 其实就是对接各种奇奇怪怪 ups 的，这里我这两台一个用的是串口（apcsmart）,另一个是 usbhid-ups，这里主要是以前者讲解的。
 
-配置 ups 驱动：
+大部分的 ups 都可以通过 `nut-scanner -C` 扫描出来，自动生成配置文件然后直接 `sudo tee` 写到 `ups.conf` 里面。
+
+当然也可以手动配置 ups 驱动：
+
 ```bash
 ## /etc/nut/ups.conf 
-## 根据需要填写,可用nut-scanner -U获取驱动
 [ups] 
     driver = apcsmart 
     port = /dev/ups 
@@ -32,7 +34,7 @@ driver 其实就是对接各种奇奇怪怪 ups 的，这里我这两台一个�
     override.battery.runtime.low = 20
 ```
 
-启动服务：`upsdrvctl start`。
+---
 
 这里有个小插曲，串口可能提示权限不够：
 ```bash
@@ -56,7 +58,9 @@ udevadm control --reload-rules
 udevadm trigger
 ```
 
-再次启动：`upsdrvctl start`
+对于 usb，直接把 nut 加到 usb 组即可。
+
+一般来说我们写好配置文件之后，会使用 `systemctl restart nut-driver-enumerator.service` 把模板实例化，然后再使用 `upsdrvsvcctl start ups` 来启动，这样由服务管理器会方便管理很多，当然也可以用传统的 `upsdrvctl start` 启动，这样方便手动调试。
 
 ### 服务层
 
@@ -96,13 +100,14 @@ LISTEN 0.0.0.0 3493
 
 配置 nut-monitor 以便自动关机：
 ```bash
+## /etc/nut/upsmon.conf
 MONITOR ups@localhost 1 monuser secret master # slave也可以，后文（关机过程）讲
+# 关机指令。当 monitor 服务启动了，在遇到低电量阈值的时候，就会执行。
+SHUTDOWNCMD "/sbin/shutdown -h +0"
+# 还有一些其他的，默认即可
 ```
 
-你可以看到，最下面有个`shutdown`命令，这个只要 monitor 服务启动了，在遇到低电量阈值的时候，就一定会执行的。
-
 启动服务：`systemctl enable --now nut-monitor`
-
 
 ## 关机过程
 
@@ -129,7 +134,7 @@ MONITOR ups@localhost 1 monuser secret master # slave也可以，后文（关机
 if /sbin/upsmon -K >/dev/null 2>&1; then
   # The argument may be anything compatible with sleep
   # (not necessarily a non-negative integer)
-  wait_delay="`/bin/sed -ne 's#^ *POWEROFF_WAIT= *\(.*\)$#\1#p' /etc/nut/nut.conf`" || wait_delay=""
+  wait_delay="`/bin/sed -ne '' /etc/nut/nut.conf`" || wait_delay=""
 
   /sbin/upsdrvctl shutdown
 
@@ -297,4 +302,4 @@ systemctl edit nut-driver@ups.service
 ExecStartPost=/bin/sh -c "sleep 5 && /usr/bin/upsrw -s driver.flag.allow_killpower=1 -u admin -p <你的密码> ups"
 ```
 
-但是这台设备不再身边，所以我还是选择了保守的 apcupsd 方案关机+nut 桥接给群晖，这篇文章之后还会更新的。
+感觉 nut 还在活跃开发不够稳定，所以我还是选择了保守的 apcupsd 方案关机+nut 桥接给群晖。
