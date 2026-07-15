@@ -20,6 +20,12 @@ links:
     description: 在宇宙角落找寻破碎的心
     website: https://blog.bluespace.ren
     image: https://blog.bluespace.ren/img/soine.png
+  - title: 行云小站
+    description: 梦想改变自己的疯子。
+    website: https://w568w.github.io/
+    #backup: https://www.w568w.eu.org/ （备用域名 1，使用 GitHub Pages 托管）
+    #        https://blog.w568w.top/ （备用域名 2，使用 Vercel 托管）
+    image: https://www.w568w.eu.org/images/avatar.gif
     #- title: 
     #  description: 
     #  website: 
