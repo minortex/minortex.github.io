@@ -349,3 +349,26 @@ html.dark {
 html.dark .prose {
   --tw-prose-code: rgb(var(--color-primary-300));
 }
+
+/* =================================================================== */
+/* 首页背景图：只在深色模式显示 */
+/* 浅色模式下主题会叠一层 from-neutral/to-neutral-100 opacity-60 的白色渐变，
+   深色照片会被洗成灰雾、人物只剩影子，所以浅色模式直接隐藏，保持纯色首页。 */
+/* =================================================================== */
+html:not(.dark) #background-image,
+html:not(.dark) #hero,
+html:not(.dark) #hero-background,
+html:not(.dark) #background-blur {
+  display: none;
+}
+
+/* =================================================================== */
+/* 首页背景：桌面端让高度跟随宽度，保持 16:9，避免横向裁切 */
+/* 窄屏（<1024px）继续用 object-cover 裁切，竖屏装不下 16:9 是必然的 */
+/* =================================================================== */
+@media (min-width: 1024px) {
+  #background-image,
+  #background-image + div {
+    height: min(1000px, 56.25vw);
+  }
+}

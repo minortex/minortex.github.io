@@ -6,9 +6,12 @@ enableStructuredBreadcrumbs = true
 highlightCurrentMenuArea = true
 smartTOC = true
 smartTOCHideUnfocusedChildren = true
-defaultAppearance = "light"
+defaultAppearance = "dark"
 dateFormat = "2006 Jan 02"
 copyright = "Copyright© { year } T.本秋. Licensed under CC BY-NC-SA 4.0."
+defaultBackgroundImage = 'imgs/home-background.webp'
+imagePosition = "74% 35%"
+backgroundImageWidth = 1920
 
 [header]
 layout = "floating"
@@ -19,6 +22,7 @@ showScrollToTop = true
 
 [homepage]
 layout = "background"
+layoutBackgroundBlur = true
 showrecent = true
 showmorelink = true
 cardView = true
@@ -40,11 +44,23 @@ showRelatedContent = true
 showComments = true
 relatedContentLimit = 5
 heroStyle = "background"
-layoutBackgroundBlurStyle = "fade"
+layoutBackgroundBlurStyle = "classic"
 
 [list]
 constrainItemsWidth = "prose"
 showHero = true
 heroStyle = "background"
 featureImageHover = true
-layoutBackgroundBlurStyle = "fade"
+layoutBackgroundBlurStyle = "classic"
+
+[taxonomy]
+showHero = true
+heroStyle = "background"
+layoutBackgroundBlur = true
+layoutBackgroundBlurStyle = "classic"
+
+[term]
+showHero = true
+heroStyle = "background"
+layoutBackgroundBlur = true
+layoutBackgroundBlurStyle = "classic"
