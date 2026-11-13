@@ -298,3 +298,54 @@ div.article-content .article-list--compact.links {
     animation: 0.2s ease-in both vt-fade-in;
   }
 }
+
+/* =================================================================== */
+/* 代码高亮配色：覆盖主题内置的 Chroma GitHub 色板（红 -> Material Blue） */
+/* 主题把 chroma.css 导入 @layer utilities，这里是无层级规则，天然优先， */
+/* 所以不需要 html:not(.dark) 之类的前缀去拼特异性。 */
+/* 调色只改下面两个变量。 */
+/* =================================================================== */
+:root {
+  --code-keyword: #1565c0; /* 关键字 */
+  --code-name: #0d47a1; /* 变量 / 命名空间 / 标签 / 运算符 */
+}
+
+html.dark {
+  --code-keyword: #79c0ff;
+  --code-name: #a5d6ff;
+}
+
+.chroma .k,
+.chroma .kc,
+.chroma .kd,
+.chroma .kn,
+.chroma .kp,
+.chroma .kr,
+.chroma .kt {
+  color: var(--code-keyword);
+}
+
+.chroma .nn,
+.chroma .nl,
+.chroma .nv,
+.chroma .vc,
+.chroma .vg,
+.chroma .vi,
+.chroma .vm,
+.chroma .o,
+.chroma .ow {
+  color: var(--code-name);
+}
+
+/* =================================================================== */
+/* 行内代码配色：主题把 --tw-prose-code 映射到 secondary（偏红），改为蓝色 */
+/* 只影响 `code` 行内样式，不涉及 .chroma 代码块 */
+/* =================================================================== */
+/* 深色模式必须单独覆盖：.prose-invert 会把 --tw-prose-code 指回 invert 变量 */
+.prose {
+  --tw-prose-code: rgb(var(--color-primary-700));
+}
+
+html.dark .prose {
+  --tw-prose-code: rgb(var(--color-primary-300));
+}
