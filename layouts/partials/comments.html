@@ -1,2 +1,22 @@
 {{- /* 评论区 - Twikoo */ -}}
 <div id="tcomment"></div>
+<script>
+  (function () {
+    var boot = function () {
+      twikoo.init({
+        envId: 'https://twikoo.texsd.eu.org',
+        el: '#tcomment',
+        path: window.location.pathname,
+        lang: 'zh-CN'
+      });
+    };
+    if (typeof twikoo !== 'undefined') {
+      boot();
+      return;
+    }
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/twikoo@latest/dist/twikoo.all.min.js';
+    script.onload = boot;
+    document.head.appendChild(script);
+  })();
+</script>

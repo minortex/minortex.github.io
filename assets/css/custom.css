@@ -270,3 +270,31 @@ div.article-content .article-list--compact.links {
   margin-right: auto;
   border-radius: 8px;
 }
+/* =================================================================== */
+/* 页面跳转过渡：跨文档 View Transitions（纯 CSS，无需 JS） */
+/* =================================================================== */
+@view-transition {
+  navigation: auto;
+}
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: 0.2s ease-out both vt-fade-out;
+  }
+
+  ::view-transition-new(root) {
+    animation: 0.2s ease-in both vt-fade-in;
+  }
+}

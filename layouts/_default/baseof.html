@@ -1,4 +1,3 @@
-<!-- 引入 Barba.js 和 GSAP 实现淡入淡出效果 -->
 <!doctype html>
 <html
   lang="{{ with site.Params.isoCode | default (site.LanguageCode | default `en`) }}{{- . -}}{{ end }}"
@@ -28,8 +27,8 @@
       {{ partial "header/basic.html" . }}
     {{ end }}
     
-    <div data-barba="wrapper" class="relative flex flex-col grow">
-      <main id="main-content" data-barba="container" class="grow">
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
         {{ block "main" . }}{{ end }}
         {{ if and (site.Params.footer.showScrollToTop | default true) }}
           {{- partial "scroll-to-top.html" . -}}
@@ -40,8 +39,6 @@
         {{- partial "search.html" . -}}
       {{ end }}
     </div>
-    
-    {{- partial "barba.html" . -}}
   </body>
   {{ if site.Params.buymeacoffee.globalWidget | default false }}
     <script
