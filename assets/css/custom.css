@@ -356,6 +356,7 @@ html.dark .prose {
    深色照片会被洗成灰雾、人物只剩影子，所以浅色模式直接隐藏，保持纯色首页。 */
 /* =================================================================== */
 html:not(.dark) #background-image,
+html:not(.dark) #background-image ~ div,
 html:not(.dark) #hero,
 html:not(.dark) #hero-background,
 html:not(.dark) #background-blur {
@@ -371,4 +372,37 @@ html:not(.dark) #background-blur {
   #background-image + div {
     height: min(1000px, 56.25vw);
   }
+}
+
+/* =================================================================== */
+/* 亮色模式背景：纯 CSS 天空渐变（无图片、无额外请求） */
+/* 只在 html:not(.dark) 生效，深色模式不受影响 */
+/* =================================================================== */
+html:not(.dark) body {
+  background-image:
+    radial-gradient(80% 50% at 90% -5%, rgba(var(--color-secondary-50), 0.9), transparent 60%),
+    linear-gradient(180deg, rgba(var(--color-primary-50), 0.85) 0%, transparent 480px);
+  background-repeat: no-repeat;
+}
+
+/* =================================================================== */
+/* 搜索弹窗：主题用 rounded-md(6px)，和悬浮导航的 rounded-2xl(16px) 不搭 */
+/* 只在视觉层对齐圆角，不改模板与交互 */
+/* =================================================================== */
+#search-modal {
+  border-radius: 1rem;
+}
+
+#search-results a {
+  border-radius: 0.75rem;
+}
+
+/* 搜索输入框：主题的 focus 轮廓是直角虚线框，和圆角弹窗打架 */
+#search-query {
+  border-radius: 0.5rem;
+}
+
+#search-query:focus {
+  outline: 2px solid rgba(var(--color-primary-400), 0.65);
+  outline-offset: -2px;
 }
