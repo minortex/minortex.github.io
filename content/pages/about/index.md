@@ -43,5 +43,5 @@ showComments: false
 本站使用 Blowfish 主题，基于 Hugo。
 
 - 头像 [@FURLESS_](https://space.bilibili.com/588453)
-- 首页背景图 [@木子森森森](https://www.pixiv.net/users/14292311)
-- 友链背景图 [@雪菜](https://space.bilibili.com/13225909)
+- 深色首页背景图 [@Ar 极光](https://www.bilibili.com/opus/1029336346123042834)
+

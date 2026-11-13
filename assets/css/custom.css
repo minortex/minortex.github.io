@@ -403,6 +403,34 @@ html:not(.dark) body {
 }
 
 #search-query:focus {
-  outline: 2px solid rgba(var(--color-primary-400), 0.65);
-  outline-offset: -2px;
+  outline: 1px solid rgba(var(--color-primary-400), 0.6);
+  outline-offset: -1px;
+}
+
+/* =================================================================== */
+/* 悬浮导航压缩高度：主题导航写死 h-12(48px)，这里降到 36px，整条 58 -> 46 */
+/* =================================================================== */
+/* 只作用于桌面导航；移动端下拉菜单里的 nav 也有 aria-label，不能一起压扁 */
+@media (min-width: 768px) {
+  header .main-menu nav[aria-label] {
+    height: 2.25rem;
+  }
+}
+
+/* 移动端头部：主题行高 h-14(56px)，压到 40px，整条 66 -> 50 */
+@media (max-width: 767px) {
+  header .mobile-header-row {
+    height: 2.5rem;
+  }
+}
+
+/* =================================================================== */
+/* 搜索遮罩：主题用 neutral-500/50，亮色下像灰雾；改成深色半透明 */
+/* =================================================================== */
+#search-wrapper {
+  background-color: rgba(var(--color-neutral-900), 0.3);
+}
+
+html.dark #search-wrapper {
+  background-color: rgba(var(--color-neutral-900), 0.55);
 }
